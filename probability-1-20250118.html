@@ -75,11 +75,13 @@ Even though this is provided only for a binary classifier, the same approach can
 </li>
 </ul>
 <h1>Thoughts?</h1>
-<p>At this point it is not clear whether there is a clear winner. What I have found in practice are the following best practices
-* Use multiple models from different families, and use their ensemble. 
-* Rather than attempting to give a high fidelity answer, give an answer when u are sure but choose not to give an answer whenever in doubt. So, e.g. if you are using google, OpenAI and Anthropic as your models, give an answer with a lot of certainty when all three models agree and not give any answer when there is any disagreement. 
-* Use an ensemble of the above techniques rather than any single one. 
-* I believe an approach like [<strong>Pedapati et al. 2024</strong> ] which creates some features on the structure of knowledge that the LLM has with some RLHF may eventually prove to be the best but this is just a hypothesis at this time. </p>
+<p>At this point it is not clear whether there is a clear winner. What I have found in practice are the following best practices:</p>
+<ul>
+<li>Use multiple models from different families, and use their ensemble. </li>
+<li>Rather than attempting to give a high fidelity answer, give an answer when u are sure but choose not to give an answer whenever in doubt. So, e.g. if you are using google, OpenAI and Anthropic as your models, give an answer with a lot of certainty when all three models agree and not give any answer when there is any disagreement. </li>
+<li>Use an ensemble of the above techniques rather than any single one. </li>
+<li>I believe an approach like [<strong>Pedapati et al. 2024</strong> ] which creates some features on the structure of knowledge that the LLM has with some RLHF may eventually prove to be the best but this is just a hypothesis at this time. </li>
+</ul>
 <p>Still waiting to find some research that blows me away. I am sure there are 10 more papers in this space  between me doing this research and writing this entry and perhaps a 100 more by the time you read it. </p>
 <h1>Reference</h1>
 <ul>
