@@ -1,146 +1,156 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Pelican" name="generator"/>
-<title>Play Deliberately - Technical</title>
-<link href="/theme/css/main.css" rel="stylesheet"/>
-</head>
-<body class="home" id="index">
-<header class="body" id="banner">
-<h1><a href="/">Play Deliberately</a></h1>
-<nav><ul>
-<li><a href="/pages/about.html">About</a></li>
-<li><a href="/category/business.html">Business</a></li>
-<li><a href="/category/creative.html">Creative</a></li>
-<li class="active"><a href="/category/technical.html">Technical</a></li>
-</ul></nav>
-</header><!-- /#banner -->
-<aside class="body" id="featured">
-<article>
-<h1 class="entry-title"><a href="/probability-1-20250118.html">Assigning Confidences to LLM Outputs</a></h1>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Play Deliberately - Technical</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">Play Deliberately</a></h1>
+                        <nav><ul>
+                                                <li><a href="/pages/about.html">About</a></li>
+                                                <li><a href="/category/business.html">Business</a></li>
+                                                <li><a href="/category/creative.html">Creative</a></li>
+                                                <li class="active"><a href="/category/technical.html">Technical</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+
+                <aside id="featured" class="body">
+                    <article>
+                        <h1 class="entry-title"><a href="/probability-1-20250118.html">Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs</a></h1>
 <footer class="post-info">
-<abbr class="published" title="2025-01-18T00:00:00-07:00">
+        <abbr class="published" title="2025-01-18T00:00:00-07:00">
                 Published: Sat 18 January 2025
         </abbr>
-<address class="vcard author">
+
+                <address class="vcard author">
                         By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-</address>
-<p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/probability.html">Probability</a> </p>
-</footer><!-- /.post-info --><p>LLM inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a way that is hard to predict and account for. In TruU we have technologies beyond just calibration for accounting for errors in the deep models. This article looks at the current research on how to solve this problem. </p>
-<h3>White Box Approaches</h3>
+                </address>
+        <p>In <a href="/category/technical.html">Technical</a>.</p>
+<p>tags: <a href="/tag/probability.html">Probability</a> </p>        
+</footer><!-- /.post-info --><p><span class="caps">LLM</span> inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a way that is hard to predict and account for. In TruU we have technologies beyond just calibration for accounting for errors in the deep models. This article looks at the current research on how to solve this&nbsp;problem. </p>
+<h3>White Box&nbsp;Approaches</h3>
 <ul>
-<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. </li>
-<li>Instead of logits, one can measure entropy of the output using the internal states and use it similarly. </li>
-<li>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
-<li>Compute the features. Given a training set of tuples \&lt; embedding(Q), embedding(A), T/F&gt; concatenate the two embeddings, so we have the following \&lt; n-dimensional point, T/F&gt;. </li>
-<li>Run a logistic regression on this data such that Function(Q,A) = probability of correctness</li>
-<li>When the LLM produces an answer A1 given a question Q1, we can use the logistic regression to compute a confidence in the result.<br/>
-So, the idea being that if an LLM has good knowledge about a certain subset of the embedding space, then it will continue to have correct knowledge about that space. </li>
+<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very&nbsp;reliable. </li>
+<li>Instead of logits, one can measure entropy of the output using the internal states and use it&nbsp;similarly. </li>
+<li>Using an <span class="caps">ML</span> model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
+<li>Compute the features. Given a training set of tuples \&lt; embedding(Q), embedding(A), T/F&gt; concatenate the two embeddings, so we have the following \&lt; n-dimensional point,&nbsp;T/F&gt;. </li>
+<li>Run a logistic regression on this data such that Function(Q,A) = probability of&nbsp;correctness</li>
+<li>When the <span class="caps">LLM</span> produces an answer A1 given a question Q1, we can use the logistic regression to compute a confidence in the result.<br>
+So, the idea being that if an <span class="caps">LLM</span> has good knowledge about a certain subset of the embedding space, then it will continue to have correct knowledge about that&nbsp;space. </li>
 </ul>
 </li>
 </ul>
-<h3>Block Box Approaches</h3>
-<p>These are the bigger subset of the research as these approaches have wider applicability. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important target. </p>
+<h3>Block Box&nbsp;Approaches</h3>
+<p>These are the bigger subset of the research as these approaches have wider applicability. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important&nbsp;target. </p>
 <ul>
-<li>Make LLM reflect on its ideas. A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking LLM compute the confidence of its output to different ways in which we can have LLMs self reflect on the results.<ul>
+<li>Make <span class="caps">LLM</span> reflect on its ideas. A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking <span class="caps">LLM</span> compute the confidence of its output to different ways in which we can have LLMs self reflect on the results.<ul>
 <li>[<strong>Wagner et al. 2024</strong>]<ul>
-<li>Ask a question, get the answer</li>
+<li>Ask a question, get the&nbsp;answer</li>
 <li>Generate features <ul>
-<li>assume the answer is correct</li>
-<li>generate various rationales for the answer</li>
-<li>assume the answer is incorrect</li>
-<li>generate various rationales for the answer being wrong</li>
+<li>assume the answer is&nbsp;correct</li>
+<li>generate various rationales for the&nbsp;answer</li>
+<li>assume the answer is&nbsp;incorrect</li>
+<li>generate various rationales for the answer being&nbsp;wrong</li>
 </ul>
 </li>
-<li>Ask the LLM to predict the probability of the answer to be correct given the rationale and vice versa. </li>
+<li>Ask the <span class="caps">LLM</span> to predict the probability of the answer to be correct given the rationale and vice&nbsp;versa. </li>
 <li>Use this to create a confusion matrix and then come up with the confidence. 
-Even though this is provided only for a binary classifier, the same approach can be extended to a multi-class kind of questions</li>
+Even though this is provided only for a binary classifier, the same approach can be extended to a multi-class kind of&nbsp;questions</li>
 </ul>
 </li>
-<li>[<strong>Shrivastava et al. 2023</strong>] This approach uses an White Box approach by picking a surrogate model e.g. Llama to generate the confidence of the generated by the GPT. When Llama may not generate the same answer they may either not return the result or have an ensemble of open source models to produce the result. To me this approach doesn't sound credible. Maybe I dont fully understand how it works. </li>
-<li>[<strong>Li, Moxin, et al. 2024 </strong>] Generate multiple answers by prompting LLM to  generate say 5 answers, have it generate multiple justifications for each answer. Prompt the LLM with the question, all the answers, and all the justifications  and have it come up with probabilities for each answer. Rerun it again and again by shuffling the order of the justifications etc. Eventually take the average of the resulting probabilities. The authors mention that shuffling of justifications was specially important. </li>
-<li>[<strong>Becker and Soatto 2024</strong>] Another variant. Generate explanations for each of the answers. Figure out entailment probability of each of the explanations. Figure out the distribution of the answers given the explanation and then marginalize the explanations given an answer. My mathematical bent appreciates this approach but there is no way to say whether this is any better than the previous approach </li>
-<li>[<strong>Pedapati et al. 2024</strong>] I like this approach but this is strictly a emotional bias with not much of a scientific basis for my preference. Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute the 3 features researched:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) SRC minimum value. Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the LLM. </li>
+<li>[<strong>Shrivastava et al. 2023</strong>] This approach uses an White Box approach by picking a surrogate model e.g. Llama to generate the confidence of the generated by the <span class="caps">GPT</span>. When Llama may not generate the same answer they may either not return the result or have an ensemble of open source models to produce the result. To me this approach doesn&#8217;t sound credible. Maybe I dont fully understand how it&nbsp;works. </li>
+<li>[<strong>Li, Moxin, et al. 2024 </strong>] Generate multiple answers by prompting <span class="caps">LLM</span> to  generate say 5 answers, have it generate multiple justifications for each answer. Prompt the <span class="caps">LLM</span> with the question, all the answers, and all the justifications  and have it come up with probabilities for each answer. Rerun it again and again by shuffling the order of the justifications etc. Eventually take the average of the resulting probabilities. The authors mention that shuffling of justifications was specially&nbsp;important. </li>
+<li>[<strong>Becker and Soatto 2024</strong>] Another variant. Generate explanations for each of the answers. Figure out entailment probability of each of the explanations. Figure out the distribution of the answers given the explanation and then marginalize the explanations given an answer. My mathematical bent appreciates this approach but there is no way to say whether this is any better than the previous&nbsp;approach </li>
+<li>[<strong>Pedapati et al. 2024</strong>] I like this approach but this is strictly a emotional bias with not much of a scientific basis for my preference. Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute the 3 features researched:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) <span class="caps">SRC</span> minimum value. Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the <span class="caps">LLM</span>. </li>
 </ul>
 </li>
 </ul>
 <h1>Thoughts?</h1>
-<p>At this point it is not clear whether there is a clear winner. What I have found in practice are the following best practices:</p>
+<p>At this point it is not clear whether there is a clear winner. What I have found in practice are the following best&nbsp;practices:</p>
 <ul>
-<li>Use multiple models from different families, and use their ensemble. </li>
-<li>Rather than attempting to give a high fidelity answer, give an answer when u are sure but choose not to give an answer whenever in doubt. So, e.g. if you are using google, OpenAI and Anthropic as your models, give an answer with a lot of certainty when all three models agree and not give any answer when there is any disagreement. </li>
-<li>Use an ensemble of the above techniques rather than any single one. </li>
-<li>I believe an approach like [<strong>Pedapati et al. 2024</strong> ] which creates some features on the structure of knowledge that the LLM has with some RLHF may eventually prove to be the best but this is just a hypothesis at this time. </li>
+<li>Use multiple models from different families, and use their&nbsp;ensemble. </li>
+<li>Rather than attempting to give a high fidelity answer, give an answer when u are sure but choose not to give an answer whenever in doubt. So, e.g. if you are using google, OpenAI and Anthropic as your models, give an answer with a lot of certainty when all three models agree and not give any answer when there is any&nbsp;disagreement. </li>
+<li>Use an ensemble of the above techniques rather than any single&nbsp;one. </li>
+<li>I believe an approach like [<strong>Pedapati et al. 2024</strong> ] which creates some features on the structure of knowledge that the <span class="caps">LLM</span> has with some <span class="caps">RLHF</span> may eventually prove to be the best but this is just a hypothesis at this&nbsp;time. </li>
 </ul>
-<p>Still waiting to find some research that blows me away. I am sure there are 10 more papers in this space  between me doing this research and writing this entry and perhaps a 100 more by the time you read it. </p>
+<p>Still waiting to find some research that blows me away. I am sure there are 10 more papers in this space  between me doing this research and writing this entry and perhaps a 100 more by the time you read&nbsp;it. </p>
 <h1>Reference</h1>
 <ul>
-<li>[<strong>Becker and Soatto 2024</strong>] Becker, Evan, and Stefano Soatto. "Cycles of Thought: Measuring LLM Confidence through Stable Explanations." <em>arXiv preprint arXiv:2406.03441</em> (2024).</li>
-<li>[<strong>Duan et al 2023</strong>] Jinhao Duan, Hao Cheng, Shiqi Wang, Chenan Wang,  Alex Zavalny, Renjing Xu, Bhavya Kailkhura, and  Kaidi Xu. 2023. Shifting attention to relevance: Towards the uncertainty estimation of large language  models. ArXiv preprint, abs/2307.01379.  </li>
-<li>[<strong>Kuhn et al. 2023</strong>] Lorenz Kuhn, Yarin Gal, and Sebastian Farquhar. 2023.  Semantic uncertainty: Linguistic invariances for un-  certainty estimation in natural language generation.  ArXiv preprint, abs/2302.09664.  </li>
-<li>[<strong>Li, Moxin, et al. 2024 </strong>] Li, Moxin, et al. "Think twice before assure: Confidence estimation for large language models through reflection on multiple answers." <em>arXiv preprint arXiv:2403.09972</em> (2024).</li>
-<li>[<strong>Pedapati et al. 2024</strong>] Pedapati, Tejaswini, et al. "Large Language Model Confidence Estimation via Black-Box Access." <em>arXiv preprint arXiv:2406.04370</em> (2024).</li>
-<li>[<strong>Ren et al. 2022</strong> ] Jie Ren, Jiaming Luo, Yao Zhao, Kundan Krishna, Mo-  hammad Saleh, Balaji Lakshminarayanan, and Pe-  ter J Liu. 2022. Out-of-distribution detection and  selective generation for conditional language models.  ArXiv preprint, abs/2209.15558.  </li>
+<li>[<strong>Becker and Soatto 2024</strong>] Becker, Evan, and Stefano Soatto. &#8220;Cycles of Thought: Measuring <span class="caps">LLM</span> Confidence through Stable Explanations.&#8221; <em>arXiv preprint arXiv:2406.03441</em>&nbsp;(2024).</li>
+<li>[<strong>Duan et al 2023</strong>] Jinhao Duan, Hao Cheng, Shiqi Wang, Chenan Wang,  Alex Zavalny, Renjing Xu, Bhavya Kailkhura, and  Kaidi Xu. 2023. Shifting attention to relevance: Towards the uncertainty estimation of large language  models. ArXiv preprint,&nbsp;abs/2307.01379.  </li>
+<li>[<strong>Kuhn et al. 2023</strong>] Lorenz Kuhn, Yarin Gal, and Sebastian Farquhar. 2023.  Semantic uncertainty: Linguistic invariances for un-  certainty estimation in natural language generation.  ArXiv preprint,&nbsp;abs/2302.09664.  </li>
+<li>[<strong>Li, Moxin, et al. 2024 </strong>] Li, Moxin, et al. &#8220;Think twice before assure: Confidence estimation for large language models through reflection on multiple answers.&#8221; <em>arXiv preprint arXiv:2403.09972</em>&nbsp;(2024).</li>
+<li>[<strong>Pedapati et al. 2024</strong>] Pedapati, Tejaswini, et al. &#8220;Large Language Model Confidence Estimation via Black-Box Access.&#8221; <em>arXiv preprint arXiv:2406.04370</em>&nbsp;(2024).</li>
+<li>[<strong>Ren et al. 2022</strong> ] Jie Ren, Jiaming Luo, Yao Zhao, Kundan Krishna, Mo-  hammad Saleh, Balaji Lakshminarayanan, and Pe-  ter J Liu. 2022. Out-of-distribution detection and  selective generation for conditional language models.  ArXiv preprint,&nbsp;abs/2209.15558.  </li>
 <li>
-<p>[<strong>Shrivastava et al. 2023 </strong>] Vaishnavi Shrivastava, Percy Liang, and Ananya Kumar.  2023. Llamas know what gpts don’t show: Surrogate  models for confidence estimation. ArXiv preprint,  abs/2311.08877.</p>
+<p>[<strong>Shrivastava et al. 2023 </strong>] Vaishnavi Shrivastava, Percy Liang, and Ananya Kumar.  2023. Llamas know what gpts don’t show: Surrogate  models for confidence estimation. ArXiv preprint,&nbsp;abs/2311.08877.</p>
 </li>
 <li>
-<p>[<strong>Wagner et al. 2024</strong>]Wagner, Nico, et al. "Black-box Uncertainty Quantification Method for LLM-as-a-Judge." <em>arXiv preprint arXiv:2410.11594</em>(2024).</p>
+<p>[<strong>Wagner et al. 2024</strong>]Wagner, Nico, et al. &#8220;Black-box Uncertainty Quantification Method for <span class="caps">LLM</span>-as-a-Judge.&#8221; <em>arXiv preprint arXiv:2410.11594</em>(2024).</p>
 </li>
-</ul> </article>
-</aside><!-- /#featured -->
-<section class="body" id="content">
-<h1>Other articles</h1>
-<hr/>
-<ol class="hfeed" id="posts-list">
-<li><article class="hentry">
-<header>
-<h1><a href="/bayesian-1-20241023.html" rel="bookmark" title="Permalink to Deep Names for Common Ideas">Deep Names for Common Ideas</a></h1>
-</header>
-<div class="entry-content">
+</ul>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/bayesian-1-20241023.html" rel="bookmark"
+                               title="Permalink to Deep Names for Common Ideas">Deep Names for Common&nbsp;Ideas</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
-<abbr class="published" title="2024-10-23T00:00:00-06:00">
+        <abbr class="published" title="2024-10-23T00:00:00-06:00">
                 Published: Wed 23 October 2024
         </abbr>
-<address class="vcard author">
+
+                <address class="vcard author">
                         By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-</address>
-<p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/bayesian.html">Bayesian</a> </p>
-</footer><!-- /.post-info --> <p>Sometimes, we encounter complex names for concepts we’ve been using all along. Recently, I started exploring Dempster-Shafer Theory (more on that as I learn further) and came across the following:</p>
-<h3>Principle of Insufficient Reason</h3>
+                </address>
+        <p>In <a href="/category/technical.html">Technical</a>.</p>
+<p>tags: <a href="/tag/bayesian.html">Bayesian</a> </p>        
+</footer><!-- /.post-info -->                        <p>Sometimes, we encounter complex names for concepts we’ve been using all along. Recently, I started exploring Dempster-Shafer Theory (more on that as I learn further) and came across the&nbsp;following:</p>
+<h3>Principle of Insufficient&nbsp;Reason</h3>
 <p>Also known as the Principle of Indifference, which, despite sounding like a bourgeois view of …</p>
-<a class="readmore" href="/bayesian-1-20241023.html">read more</a>
-</div><!-- /.entry-content -->
-</article></li>
-</ol><!-- /#posts-list -->
-</section><!-- /#content -->
-<section class="body" id="extras">
-<div class="blogroll">
-<h2>links</h2>
-<ul>
-<li><a href="https://TruU.ai">TruU</a></li>
-<li><a href="https://www.python.org/">Python.org</a></li>
-<li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
-<li><a href="#">You can modify those links in your config file</a></li>
-</ul>
-</div><!-- /.blogroll -->
-<div class="social">
-<h2>social</h2>
-<ul>
-<li><a href="https://www.linkedin.com/in/agnipankh/">Linked-in</a></li>
-</ul>
-</div><!-- /.social -->
-</section><!-- /#extras -->
-<footer class="body" id="contentinfo">
-<address class="vcard body" id="about">
-                                Proudly powered by <a href="https://getpelican.com/" rel="nofollow">Pelican</a>, which takes great advantage of <a href="https://www.python.org/" rel="nofollow">Python</a>.
+                        <a class="readmore" href="/bayesian-1-20241023.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+                    </ol><!-- /#posts-list -->
+                    </section><!-- /#content -->
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://TruU.ai">TruU</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="https://www.linkedin.com/in/agnipankh/">Linked-in</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
                         </address><!-- /#about -->
-<p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/" rel="nofollow">Smashing Magazine</a>, thanks!</p>
-</footer><!-- /#contentinfo -->
-</body>
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
 </html>
