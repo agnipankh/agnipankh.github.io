@@ -125,7 +125,21 @@ graphl &#39;conv5_2&#39;] =_conv2d_relu(graph[&#39;conv5_1&#39;], 30, &#39;conv5
 graph[&#39;conv5_3&#39;] =_conv2d_relu(graph[&#39;conv5_2&#39;], 32, &#39;conv5_3&#39;) &#39;conv5_3&#39;)
 graph[&#39;conv5_4&#39;] =_conv2d_relu(graph[&#39;conv5_3&#39;], 34, &#39;conv5_4&#39;) &quot;conv5_4&#39;)
 graph [&#39;avgpool5&#39;] =_avgpool(graph[&#39;conv5_4&#39;])
-</code></pre></div>                    </article>
+</code></pre></div>
+
+<p>If you study this code then you&nbsp;learn&#8230;</p>
+<ul>
+<li>The neural network is setup as a tensorflow computational graph with only one &#8220;variable&#8221; layer which is the first layer.
+None of the entries in the rest of the tree are &#8220;variables&#8221;. The output of any of these layers can be computed given the
+input but the weights of each of these layers is fixed at this&nbsp;point.</li>
+<li>graph[&#8216;input&#8217;] = tf.Variable(np.zeros((1, IMAGE_HEIGHT, IMAGE_WIDTH, COLOR_CHANNELS)), dtype = &#8216;float32&#8217;). The size
+of graph[&#8216;input&#8217;] is IMAGE_HEIGHT, IMAGE_WIDTH, COLOR_CHANNELS which can be set to 600 × 800 ×&nbsp;3.</li>
+<li>sess.run(graph[&#8216;input&#8217;].assign(content_image). is used to initialize the first layer of the <span class="caps">CNN</span> with an&nbsp;image.</li>
+</ul>
+<p>In tensorflow variables are the only objects whose values can change when optimization is run. Now let us see how to setup the optimization&nbsp;problem.</p>
+<h2>Setting up the Optimization&nbsp;Problem</h2>
+<p>Let us assume that there are two functions content_cost and style_cost that we have to minimize, both of them take activations
+of two neural networks&#8217; layers as&nbsp;input.</p>                    </article>
                 </aside><!-- /#featured -->
                 <section id="extras" class="body">
                                 <div class="blogroll">
