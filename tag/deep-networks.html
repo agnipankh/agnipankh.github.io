@@ -95,7 +95,37 @@ same pre-trained weights for the convolution filters will work and activate on s
 <li>
 <p>The fully connected layers will need different number of weights and retraining, but we will not use that part of the&nbsp;network.</p>
 </li>
-</ul>                    </article>
+</ul>
+<h2>If the output of the <span class="caps">VGG</span>-19 network is 1x1x1000 then how do we use it to compute an image that is&nbsp;600x800x3?</h2>
+<p>We already know that we wont be using the standard <span class="caps">VGG</span>-19 network, specially the fully connected layers. Let me show you
+how the optimization problem is set up in such a way that solving for the generated image (see red/blue/green image below)
+minimizes the style and content&nbsp;cost.</p>
+<h4>Creation of the neural&nbsp;network</h4>
+<p>(excerpt from the art.py&nbsp;file)</p>
+<div class="highlight"><pre><span></span><code>graph = {}
+graphl &#39;input&#39;] = tf. Variable(np.zeros ((1, IMAGE_HEIGHT, IMAGE_WIDTH, COLOR_CHANNELS)),
+graph[&#39;conv1_1&#39;] =_conv2d_relu(graph[&#39;input&#39;], 0, &#39;conv1_1&#39;)
+graph[&#39;conv1_2&#39;] =_conv2d_relu(graph[&#39;conv1_1&#39;], 2, &#39;conv1_2&#39;)
+graph [&#39;avgpool1&#39;] =_avgpool(graph[&#39;conv1_2&#39;])
+graph[&#39;conv2_1&#39;] =_conv2d_relu(graph[&#39;avgpool1&#39;], 5, &#39;conv2 _1&#39;)
+graph[&#39;conv2_2&#39;] =_conv2d_relu(graph[&#39;conv2_1&#39;], 7, &#39;conv2_2&#39;)
+graph[&#39;avgpoo12&#39;] =_avgpool(graph[&#39;conv2_2&#39;])
+graphl&#39;conv3_1&#39;] =_conv2d_relu(graphl&#39;avgpool2&#39;], 10, &#39;conv3 _1&#39;)
+graph [&#39;conv3_2&#39;] = _conv2d. _relu(graphI&#39;conv3_1&#39;], 12, &#39;conv3 _2&#39;)
+graph[&#39;conv3_3&#39;] =_conv2d_relu(graph[&#39;conv3_2&#39;], 14, &#39;conv3_3&#39;)
+graph[&#39;conv3_4&#39;] =_conv2d_relu(graph[&#39;conv3_3&#39;], 16, &#39;conv3_4&#39;)
+graph [&#39;avgpoo13&#39;] =_avgpool(graph|&#39;conv3_4&#39;])
+graph[&#39;conv4_1&#39;] =_conv2d_relu(graph[&#39;avgpool3&#39;], 19, &#39;conv4_1&#39;) &#39;conv4_1&#39;)
+graph[&#39;conv4_2&#39;] =_conv2d_relu(graph[&#39;conv4_1&#39;], 21, &#39;conv4_2&#39;)
+graph[&#39;conv4_3&#39;] =_conv2d_relu(graph[&#39;conv4_2&#39;], 23, &#39;conv4_3&#39;)
+graph[&#39;conv4_4&#39;] =_conv2d_relu(graph[&#39;conv4_3&#39;], 25, &#39;conv4_4&#39;)
+graph l&#39;avgpoo14&#39;] =_avgpool(graph[&#39;conv4_4&#39;])
+graph[&#39;conv5_1&#39;] =_conv2d_relu(graph[&#39;avgpool4&#39;], 28, &#39;conv5_1&#39;) &#39;conv5_1&#39;)
+graphl &#39;conv5_2&#39;] =_conv2d_relu(graph[&#39;conv5_1&#39;], 30, &#39;conv5_2&#39;) &#39;conv5_2&#39;)
+graph[&#39;conv5_3&#39;] =_conv2d_relu(graph[&#39;conv5_2&#39;], 32, &#39;conv5_3&#39;) &#39;conv5_3&#39;)
+graph[&#39;conv5_4&#39;] =_conv2d_relu(graph[&#39;conv5_3&#39;], 34, &#39;conv5_4&#39;) &quot;conv5_4&#39;)
+graph [&#39;avgpool5&#39;] =_avgpool(graph[&#39;conv5_4&#39;])
+</code></pre></div>                    </article>
                 </aside><!-- /#featured -->
                 <section id="extras" class="body">
                                 <div class="blogroll">
