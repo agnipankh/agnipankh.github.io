@@ -62,19 +62,30 @@ of an artist. This blog entry is my understanding of that&nbsp;problem.</p>
 <p>G11 encodes the vertical hatching style of the image. So, for all parts of the image that have vertical hatching have high values for
 those cells. When computing the dot-product the entries get further activated. So, in the Gram matrix of this image G11 gets
 activated but not G44 (since there is no horizontal hatching). This forces the cost function to create an image with vertical
-hatching and not horizontal hatching.
-When learning to shade using hatching typically artists use hatching to reproduce a certain tone value. This part will be done by
-the content optimization part.
-Similarly G22 encodes and maximizes the cross hatching for darker area of the image.
-Also, if the painting was painted on a certain paper canvas then this will be captured using the diagonal part of the gram matrix.
+hatching and not horizontal&nbsp;hatching.</p>
+<p>When learning to shade using hatching typically artists use hatching to reproduce a certain tone value. This part will be done by
+the content optimization&nbsp;part.</p>
+<p>Similarly G22 encodes and maximizes the cross hatching for darker area of the&nbsp;image.</p>
+<p>Also, if the painting was painted on a certain paper canvas then this will be captured using the diagonal part of the gram matrix.
 So, G55 for the style image&nbsp;below.</p>
 <h2>Non-diagonal entries in the Gram&nbsp;Matrix</h2>
 <p>G12: is the dot product of the activation of filter 1 with filter 2. So, this part will get activated only if 1 and 2 overlap in certain parts
 of the image. So, this can capture the cross over areas of the image. In this case it makes sure that the transition from darker to
-lighter areas of the image have a way to be captured.
-Regarding the canvas texture and a painting made with oil, a non-diagonal entry will also capture the fact that when the paint is
+lighter areas of the image have a way to be&nbsp;captured.</p>
+<p>Regarding the canvas texture and a painting made with oil, a non-diagonal entry will also capture the fact that when the paint is
 thick (lots of brush strokes), the canvas disappears. So, we will find that G56 has a really low weight while G55 and G66 have
-high&nbsp;weights.</p>                    </article>
+high&nbsp;weights.</p>
+<figure>
+    <img src="/images/technical/graham_matrix3_20250315.png" alt="Description of image">
+    <figcaption></figcaption>
+</figure>
+
+<h2>When Style is dependent upon the&nbsp;Content</h2>
+<p>It is extremely common that some times the style is dependent on the content, specially for the hair (see filter 3) below. Now
+whether Gatys&#8217; algorithm can learn to apply that style only to hair in a different image is not immediately obvious and probably a
+failure mode for that&nbsp;algorithm.</p>
+<p>Assumption: That <span class="caps">VGG</span>-19 and <span class="caps">VGG</span>-16 capture the right filters that an artist may draw. Since human beings have no difficulty
+recognizing art, this is a valid assumption assuming that <span class="caps">VGG</span> captures the human visual&nbsp;system.</p>                    </article>
                 </aside><!-- /#featured -->
                 <section id="extras" class="body">
                                 <div class="blogroll">
