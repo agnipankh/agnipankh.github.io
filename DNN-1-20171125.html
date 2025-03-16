@@ -146,6 +146,58 @@ of graph[&#8216;input&#8217;] is IMAGE_HEIGHT, IMAGE_WIDTH, COLOR_CHANNELS which
 <h2>Setting up the Optimization&nbsp;Problem</h2>
 <p>Let us assume that there are two functions content_cost and style_cost that we have to minimize, both of them take activations
 of two neural networks&#8217; layers as&nbsp;input.</p>
+<figure>
+    <img src="/images/technical/style_xfr5_20250315.png" alt="Resultant Image">
+    <figcaption>Style Transfer Optimization Setup</figcaption>
+</figure>
+
+<p>In this set up the neural network is instanciated three times but only the middle one is used for the optimization. In art.py let us
+look at the definition of content_loss_func&nbsp;carefully.</p>
+<div class="highlight"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">content_loss_func</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Content loss function as defined in the paper.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+<span class="w">   </span><span class="n">def</span><span class="w"> </span><span class="n">_content_loss</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">):</span>
+<span class="w">      </span><span class="c1"># N is the number of filters (at layer l).</span>
+<span class="w">      </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="w">      </span><span class="c1"># M is the height times the width of the feature map (at layer l).</span>
+<span class="w">      </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="w">      </span><span class="c1"># Interestingly, the paper uses this form instead:</span>
+<span class="w">      </span><span class="c1">#</span>
+<span class="w">      </span><span class="c1"># 0.5 * tf.reduce_sum(tf.pow(x - p, 2))</span>
+<span class="w">      </span><span class="c1">#</span>
+<span class="w">      </span><span class="c1"># But this form is very slow in &quot;painting&quot; and thus could be missing</span>
+<span class="w">      </span><span class="c1"># out some constants (from what I see in other source code), so I&#39;ll</span>
+<span class="w">      </span><span class="c1"># replicate the same normalization constant as used in style loss.</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span>
+<span class="k">return</span><span class="w"> </span><span class="n">_content_loss</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;conv4_2&#39;</span><span class="p">]),</span><span class="w"> </span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;conv4_2&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<p>If you look at the last line of the function then _content_loss is compared between sess.run(model[&#8216;conv4_2&#8217;]) and model[&#8216;conv4_2&#8217;]. And the difference between the first and the second is that the one where the session has been executed, the
+value is the instantiated value of the hidden layer (top layer, red). Here the links between the previous layers of the neural
+network are no longer valid. So, even though in the code it looks like the model is still active, it is really the values which are
+being used. In fact the type of the red layers after sess.run is of type numpy.darray and not tensorflow. Same with the green
+squares in the 3rd&nbsp;network.</p>
+<p>So, for all intents and purposes the top and bottom neural network may not have existed and we are just optimizing for the only
+variable in the graph which is the generated image (see&nbsp;Figure).</p>
+<p>To make this further clear, the types of the blue layers is a tensorflow (&#8216;tensorflow.python.framework.ops.Tensor&#8217;) whereas the
+type of the red / green layers is a numpy array.&nbsp;(&#8216;numpy.ndarray&#8217;)</p>
+<h2>How to Compute a Neural Network only to a certain&nbsp;Point?</h2>
+<p>For a newcomer, it is sometimes not clear how to compute a neural network only to a certain point and not all the way to the final
+output. So, for example for the figure above the network in blue what if I only want the activations in layer&nbsp;L4.</p>
+<p>There are two use cases for&nbsp;this:</p>
+<ul>
+<li>Connecting up the tensor-flow graph to create a new larger graph which will eventually be used for computation. In this case you will use graph[&#8216;conv2_1&#8217;] to connect up the network. In our example when we constructed the network we had created a dictionary of node names for easy reference. This is how the blue network got connected in this particular&nbsp;example.</li>
+<li>Finding the actual value of the activation layer for a specific input. There are two steps in this use&nbsp;case:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="n">sess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">graph</span><span class="p">[&#39;</span><span class="k">input</span><span class="p">&#39;].</span><span class="k">assign</span><span class="p">(</span><span class="n">content_image</span><span class="p">))</span>
+<span class="w">     </span><span class="n">activation_layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">graph</span><span class="p">[&#39;</span><span class="n">conv2_1</span><span class="p">&#39;])</span>
+</code></pre></div>
+
+<p>The first line initializes the variable to a particular value (this step can be omitted if the variable already has certain value)
+and the second line executes the tensorflow graph to get the value of the layer of type numpy.darray. It is no longer
+connected to the rest of the network. This is how the red and the green network got connected in this example. Note that
+the bottom layers in green (or the top layers in red) are not connected to each&nbsp;other.</p>
       </div><!-- /.entry-content -->
 
     </article>
