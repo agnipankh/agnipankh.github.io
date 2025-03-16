@@ -4,9 +4,9 @@
                         <meta charset="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                         <meta name="generator" content="Pelican" />
-                        <title>Mandarin in Space</title>
+                        <title>Playing with Gamma</title>
                         <link rel="stylesheet" href="/theme/css/main.css" />
-    <meta name="description" content="Even though I have supervised developing of hundreds of apps, when boys were learning Mandarin in kindergarten, I decided to write this game..." />
+    <meta name="description" content="Gamma is the non-linearity in the CRT which matches closely the non-linearity in the human eye. It is no wonder that all display devices now..." />
         </head>
 
         <body id="index" class="home">
@@ -23,48 +23,58 @@
     <article>
       <header>
         <h1 class="entry-title">
-          <a href="/games-1-20180523.html" rel="bookmark"
-             title="Permalink to Mandarin in Space">Mandarin in&nbsp;Space</a></h1>
+          <a href="/gamma-1-20170523.html" rel="bookmark"
+             title="Permalink to Playing with Gamma">Playing with&nbsp;Gamma</a></h1>
       </header>
 
       <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2018-05-23T00:00:00-06:00">
-                Published: Wed 23 May 2018
+        <abbr class="published" title="2017-05-23T00:00:00-06:00">
+                Published: Tue 23 May 2017
         </abbr>
 
                 <address class="vcard author">
                         By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
                 </address>
         <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/videogames.html">VideoGames</a> <a href="/tag/education.html">Education</a> </p>        
-</footer><!-- /.post-info -->        <p>Even though I have supervised developing of
-hundreds of apps, when boys were learning
-Mandarin in kindergarten, I decided to write
-this game myself to get them to practice their
-Mandarin. It is essentially a flash card game
-and actually can be extended to support any
-flash card&nbsp;implementations.</p>
-<p>The game was written in Unity 4 and I was
-surprised how much work was generating the
-art assets. I implemented Hermann
-Ebbinghaus forgetting curve to ensure that
-when kids got something correct the system
-didn&#8217;t repeat it&nbsp;immediately.</p>
-<p>Apple removed the app from the app store
-since l hadn&#8217;t updated in a while. In the
-meantime, enjoy this video&#8230; until I get the
-time to update&nbsp;it.</p>
-<iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/0iXKbeL1dgg
-" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
+<p>tags: <a href="/tag/movies.html">Movies</a> <a href="/tag/photography.html">Photography</a> </p>        
+</footer><!-- /.post-info -->        <p><strong>Gamma</strong> is the non-linearity in the <span class="caps">CRT</span> which
+matches closely the non-linearity in the
+human eye. It is no wonder that all display
+devices now artificially embed the non-
+linearity in the display. For example, a <span class="caps">DLP</span>
+(digital light processing) display that is a
+linear display emulates the non-linearity of
+the <span class="caps">CRT</span>.
+In this image I take advantage of the non-
+linearity in a typical display which follows the
+2.5 law of the CRTs.
+This image is locally all gray (0.5) but I create
+a gradation by locally distributing the
+channels to create the color. If you want to go
+technical here is an article on wikipedia (hint:
+I use basically the same technique that they
+use in the test chart) or better still another
+one on gamma correction by the color guru
+Charles Poynton.
+What is really interesting about this image is
+that even if you blur it a little bit, the image
+disappears. So the second image is the same
+image as the first and blurred with a gaussian
+blur with a radius of 2 pixels.
+Note that if you may have to download this
+image and display it 1 to 1 to truly
+appreciate this effect. This image has a
+resolution of&nbsp;864x1145.</p>
+<figure>
+    <img src="/images/technical/gamma_original.png" alt="Original Image">
+    <figcaption>Original Image</figcaption>
+</figure>
+
+<figure>
+    <img src="/images/technical/gamma_blurred.png" alt="Original Image">
+    <figcaption>Blurred with a radius of two pixels</figcaption>
+</figure>
       </div><!-- /.entry-content -->
 
     </article>
