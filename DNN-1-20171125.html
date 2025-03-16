@@ -61,6 +61,41 @@ implementing Gatys&#8217; style transfer algorithm. Here are a&nbsp;couple</p>
     <img src="/images/technical/style_xfr3_20250315.png" alt="Resultant Image">
     <figcaption>Resultant Image</figcaption>
 </figure>
+
+<h2>Prior&nbsp;Knowledge</h2>
+<p><span class="caps">VGG</span>-19 is a 19 layer neural network created by Karen Simonyan and Andrew Zisserman (Very Deep Convolutional Networks for
+Large-Scale Image Recognition). The neural networks takes as an input an image of size 224 x 224 × 3 and outputs a
+classification vector that can classify the image as one of a thousand different&nbsp;objects.</p>
+<figure>
+    <img src="/images/technical/style_xfr4_20250315.png" alt="Resultant Image">
+    <figcaption></figcaption>
+</figure>
+
+<p>So, if we feed an image Ai to this network then&nbsp;the</p>
+<ul>
+<li>the output will be a classification of the image e.g. whether it is a house or a&nbsp;train</li>
+<li>the activation at each of hidden layers (blue) are L1(Ai), L2(Ai).. And L19(Ai). The activation at each layer represents a feature
+of the image that the network has&nbsp;learnt.</li>
+</ul>
+<h2>Idea</h2>
+<p>So, if the distance between activations from two images A1 and A2 is small ((L1(A1), L2(A1), L3(A1)&#8230; L19(A1)), L1(A2), L2(A2), L3(A2)&#8230;
+L19(A2))) then we know that the two images are similar (and probably the&nbsp;same).</p>
+<p>Similarly if the distance between the gram matrices of the activations from A1 and A2 is small then the two images are similar in
+style. For now assume that this is&nbsp;so.</p>
+<p>So, we define two costs which capture content similarity and style similarity and setup an optimization problem to minimize the
+two. When the cost is minimized, we have generated an image that has the content from the first and the style from the 2nd.
+Note that we wont focus too much on explaining this part since it has been explained well in the Gatys&nbsp;paper.</p>
+<h2>The Genius is in the&nbsp;Details</h2>
+<p>For the rest of this post, I will assume that you get the code from logO&#8217;s implementation and code pieces refer to the art.py file
+from his&nbsp;work.</p>
+<h2>If the Neural Network takes a 224x224x3 input, then how can we use it to input an image that is&nbsp;600x800.</h2>
+<p>In a <span class="caps">CNN</span> (specifically <span class="caps">VGG</span>-19) there are a few different types of layers convolution_2D, relu, maxpool and fully connected (<span class="caps">FC</span>). If
+the <span class="caps">VGG</span>-19 is modified to handle a 600x800 input then.
+*  In the layers of the network prior to <span class="caps">FC</span> layers each layer will be of a different size but convolution filters are scale
+independent so the previously learnt weights will continue to work. So for example the first hidden layer after pooling is
+112x112x64 in the classic <span class="caps">VGG</span>-19 but in our example it will be 400x300x64. Even though the size of the layer is larger the
+same pre-trained weights for the convolution filters will work and activate on same features.
+* The fully connected layers will need different number of weights and retraining, but we will not use that part of the&nbsp;network.</p>
       </div><!-- /.entry-content -->
 
     </article>
