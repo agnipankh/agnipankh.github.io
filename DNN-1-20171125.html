@@ -90,12 +90,18 @@ Note that we wont focus too much on explaining this part since it has been expla
 from his&nbsp;work.</p>
 <h2>If the Neural Network takes a 224x224x3 input, then how can we use it to input an image that is&nbsp;600x800.</h2>
 <p>In a <span class="caps">CNN</span> (specifically <span class="caps">VGG</span>-19) there are a few different types of layers convolution_2D, relu, maxpool and fully connected (<span class="caps">FC</span>). If
-the <span class="caps">VGG</span>-19 is modified to handle a 600x800 input then.
-*  In the layers of the network prior to <span class="caps">FC</span> layers each layer will be of a different size but convolution filters are scale
+the <span class="caps">VGG</span>-19 is modified to handle a 600x800 input&nbsp;then.</p>
+<ul>
+<li>
+<p>In the layers of the network prior to <span class="caps">FC</span> layers each layer will be of a different size but convolution filters are scale
 independent so the previously learnt weights will continue to work. So for example the first hidden layer after pooling is
 112x112x64 in the classic <span class="caps">VGG</span>-19 but in our example it will be 400x300x64. Even though the size of the layer is larger the
-same pre-trained weights for the convolution filters will work and activate on same features.
-* The fully connected layers will need different number of weights and retraining, but we will not use that part of the&nbsp;network.</p>
+same pre-trained weights for the convolution filters will work and activate on same&nbsp;features.</p>
+</li>
+<li>
+<p>The fully connected layers will need different number of weights and retraining, but we will not use that part of the&nbsp;network.</p>
+</li>
+</ul>
       </div><!-- /.entry-content -->
 
     </article>
