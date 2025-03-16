@@ -57,6 +57,30 @@ of an artist. This blog entry is my understanding of that&nbsp;problem.</p>
     <img src="/images/technical/graham_matrix4_20250315.png" alt="Description of image">
     <figcaption>John Tenniel&#8217;s Interpretation of Alice Liddel</figcaption>
 </figure>
+
+<p>Two Filters that may capture the low level style of the image are denoted by squares 1 and 2 (see figure&nbsp;above).</p>
+<ul>
+<li>Filter 1: gets activated when it sees vertical hatching pattern. Filter 2: gets activated when it sees the cross hatching&nbsp;pattern.</li>
+<li>Filter 4: gets activated when it sees horizontal hatching&nbsp;pattern</li>
+</ul>
+<p>So, going back to the gram matrix there are two&nbsp;cases.</p>
+<h2>Diagonal Entries of the Gram&nbsp;Matrix</h2>
+<p>G11 encodes the vertical hatching style of the image. So, for all parts of the image that have vertical hatching have high values for
+those cells. When computing the dot-product the entries get further activated. So, in the Gram matrix of this image G11 gets
+activated but not G44 (since there is no horizontal hatching). This forces the cost function to create an image with vertical
+hatching and not horizontal hatching.
+When learning to shade using hatching typically artists use hatching to reproduce a certain tone value. This part will be done by
+the content optimization part.
+Similarly G22 encodes and maximizes the cross hatching for darker area of the image.
+Also, if the painting was painted on a certain paper canvas then this will be captured using the diagonal part of the gram matrix.
+So, G55 for the style image&nbsp;below.</p>
+<h2>Non-diagonal entries in the Gram&nbsp;Matrix</h2>
+<p>G12: is the dot product of the activation of filter 1 with filter 2. So, this part will get activated only if 1 and 2 overlap in certain parts
+of the image. So, this can capture the cross over areas of the image. In this case it makes sure that the transition from darker to
+lighter areas of the image have a way to be captured.
+Regarding the canvas texture and a painting made with oil, a non-diagonal entry will also capture the fact that when the paint is
+thick (lots of brush strokes), the canvas disappears. So, we will find that G56 has a really low weight while G55 and G66 have
+high&nbsp;weights.</p>
       </div><!-- /.entry-content -->
 
     </article>
