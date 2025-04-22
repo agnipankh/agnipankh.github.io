@@ -32,10 +32,11 @@
                 </address>
         <p>In <a href="/category/technical.html">Technical</a>.</p>
 <p>tags: <a href="/tag/llm.html">LLM</a> </p>        
-</footer><!-- /.post-info --><p>This architecture integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of four primary domains: Shared Memory, Planning, Action, and Reflection, Execution, and comprehensive Governance and MLOps&nbsp;frameworks.</p>
+</footer><!-- /.post-info --><p>This architecture is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps&nbsp;frameworks.</p>
+<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design. </p>
 <p><img alt="image" src="/images/technical/AgenticPipeline.png"></p>
 <h2>Shared&nbsp;Memory</h2>
-<p>The foundation of our system&#8217;s intelligence is a sophisticated memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
+<p>The foundation of this system&#8217;s intelligence is a memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
 <ul>
 <li>Data Lake: Forms the primary storage layer for raw, unprocessed&nbsp;data</li>
 <li>Vector <span class="caps">DB</span>: Enables semantic search and similarity-based retrieval of information using vector&nbsp;embeddings</li>
@@ -46,10 +47,10 @@
 <h2>Planning, Action, and&nbsp;Reflection</h2>
 <p>At the core of the system&#8217;s cognitive abilities is a sophisticated reasoning&nbsp;framework:</p>
 <ul>
-<li>Chain of Thought: Implements step-by-step reasoning processes that break complex problems into manageable&nbsp;sequences</li>
-<li>ReAct: Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and&nbsp;adjust</li>
-<li>Reflexion: Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
-<li>Tree of Thought: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
+<li><a href="https://arxiv.org/pdf/2201.11903">Chain of Thought</a>: Implements step-by-step reasoning processes that break complex problems into manageable&nbsp;sequences</li>
+<li><a href="https://arxiv.org/pdf/2210.03629">ReAct</a> : Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and&nbsp;adjust</li>
+<li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
+<li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
 </ul>
 <p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively. </p>
 <h2>Execution</h2>
