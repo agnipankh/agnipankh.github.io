@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-        <title>Play Deliberately - Nitty Gritty of Style Transfer</title>
-      <meta charset="utf-8" />
-      <meta name="generator" content="Pelican" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Nitty Gritty of Style Transfer</title>
+                        <link rel="stylesheet" href="/theme/css/main.css" />
+    <meta name="description" content="Style transfer was first introduced by Aaron Hertzmann’s classic paper on Image Analogies from SIGGRAPH 2001. More recently deep learning got..." />
+        </head>
 
-
-
-
-    <meta name="tags" content="Deep Networks" />
-
-  </head>
-
-  <body>
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="/">Play Deliberately</a></h1>
+                        <nav><ul>
+                                                <li><a href="/pages/about.html">About</a></li>
+                                                <li><a href="/category/business.html">Business</a></li>
+                                                <li><a href="/category/creative.html">Creative</a></li>
+                                                <li class="active"><a href="/category/technical.html">Technical</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
       <header>
-          <hgroup><h1><a href="/">Play Deliberately</a></h1></hgroup>
-          <nav><ul>
-                <li><a href="/pages/about.html" >About</a></li>
-                <li><a href="/category/business.html" >Business</a></li>
-                <li><a href="/category/creative.html" >Creative</a></li>
-                <li><a href="/category/technical.html"  aria-current="page" >Technical</a></li>
-          </ul></nav>
+        <h1 class="entry-title">
+          <a href="/DNN-1-20171125.html" rel="bookmark"
+             title="Permalink to Nitty Gritty of Style Transfer">Nitty Gritty of Style&nbsp;Transfer</a></h1>
       </header>
-      <main>
-  <article>
-    <header>
-      <h2>
-        <a href="/DNN-1-20171125.html" rel="bookmark"
-           title="Permalink to Nitty Gritty of Style Transfer">Nitty Gritty of Style&nbsp;Transfer</a></h2>
-      
-    </header>
-    <p>Style transfer was first introduced by Aaron Hertzmann&#8217;s classic paper on Image Analogies from <span class="caps">SIGGRAPH</span> 2001. More recently
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-11-25T00:00:00-07:00">
+                Published: Sat 25 November 2017
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                </address>
+        <p>In <a href="/category/technical.html">Technical</a>.</p>
+<p>tags: <a href="/tag/deep-networks.html">Deep Networks</a> </p>        
+</footer><!-- /.post-info -->        <p>Style transfer was first introduced by Aaron Hertzmann&#8217;s classic paper on Image Analogies from <span class="caps">SIGGRAPH</span> 2001. More recently
 deep learning got applied to this problem in Leon Gatys paper &#8220;A Neural Algorithm of Artistic Style&#8221; which has led to a
 resurgence of work in this area. There are a few very good tutorials on this subject which the author will turn you towards for
 implementing Gatys&#8217; style transfer algorithm. Here are a&nbsp;couple</p>
@@ -191,28 +198,36 @@ output. So, for example for the figure above the network in blue what if I only 
 and the second line executes the tensorflow graph to get the value of the layer of type numpy.darray. It is no longer
 connected to the rest of the network. This is how the red and the green network got connected in this example. Note that
 the bottom layers in green (or the top layers in red) are not connected to each&nbsp;other.</p>
-    <footer>
-      <p>Published: <time datetime="2017-11-25T00:00:00-07:00">
-        Sat 25 November 2017
-      </time></p>
-        <address>
-          By             <a href="/author/amit-agrawal.html">Amit Agrawal</a>
-        </address>
-        <p>
-          Category: <a href="/category/technical.html">Technical</a>
-        </p>
-        <p>
-          Tags:
-            <a href="/tag/deep-networks.html">Deep Networks</a>
-        </p>
-    </footer>
-  </article>
-      </main>
-      <footer>
-          <address>
-            Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>,
-            which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-          </address>
-      </footer>
-  </body>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="blogroll">
+                                        <h2>links</h2>
+                                        <ul>
+                                                        <li><a href="https://TruU.ai">TruU</a></li>
+                                                        <li><a href="https://www.python.org/">Python.org</a></li>
+                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                        <li><a href="#">You can modify those links in your config file</a></li>
+                                        </ul>
+                                </div><!-- /.blogroll -->
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+
+                                                        <li><a href="https://www.linkedin.com/in/agnipankh/">Linked-in</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
 </html>
