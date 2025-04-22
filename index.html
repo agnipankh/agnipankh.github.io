@@ -1,354 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-                        <meta charset="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                        <meta name="generator" content="Pelican" />
-                        <title>Play Deliberately</title>
-                        <link rel="stylesheet" href="/theme/css/main.css" />
-        </head>
 
-        <body id="index" class="home">
-                <header id="banner" class="body">
-                        <h1><a href="/">Play Deliberately</a></h1>
-                        <nav><ul>
-                                                <li><a href="/pages/about.html">About</a></li>
-                                                <li><a href="/category/business.html">Business</a></li>
-                                                <li><a href="/category/creative.html">Creative</a></li>
-                                                <li><a href="/category/technical.html">Technical</a></li>
-                        </ul></nav>
-                </header><!-- /#banner -->
+<head>
+      <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-                <aside id="featured" class="body">
-                    <article>
-                        <h1 class="entry-title"><a href="/llm-1-20250327.html">Agentic&nbsp;Architecture</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2025-03-27T00:00:00-06:00">
-                Published: Thu 27 March 2025
-        </abbr>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/llm.html">LLM</a> </p>        
-</footer><!-- /.post-info --><p>This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps&nbsp;frameworks.</p>
-<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design. </p>
-<p><img alt="image" src="/images/technical/AgenticPipeline.png"></p>
-<p>An enterprise probably already has these components and we just need to extend them to support&nbsp;Agents. </p>
-<h2>Shared&nbsp;Memory</h2>
-<p>The foundation of this system&#8217;s intelligence is a memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
+  <title>Play Deliberately</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+  <link href="/" rel="canonical" />
+
+  <!-- Feed -->
+
+  <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <script>
+    var siteUrl = '';
+  </script>
+
+  <script>
+    var localTheme = localStorage.getItem('attila_theme');
+    switch (localTheme) {
+      case 'dark':
+        document.documentElement.classList.add('theme-dark');
+        break;
+      case 'light':
+        document.documentElement.classList.add('theme-light');
+        break;
+      default:
+        break;
+    }
+  </script>
+
+
+
+
+
+
+
+
+<!-- Open Graph -->
+<meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Play Deliberately"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="blog"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Play Deliberately"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="View the blog."/>
+<meta prefix="og: http://ogp.me/ns#" property="og:locale" content="en_US"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="/"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://geekyshacklebolt.github.io/blog/images/my-blog-header-bg.jpg">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Website",
+  "name": " Play Deliberately ",
+  "url" : "/",
+  "image": "/theme/images/home-bg.jpg",
+  "description": "View the blog."
+}
+</script>
+</head>
+
+
+
+
+
+
+
+
+
+<body class="home-template">
+
+<div class="nav-header">
+  <nav class="nav-wrapper" aria-label="Main">
 <ul>
-<li>Data Lake: Forms the primary storage layer for raw, unprocessed&nbsp;data</li>
-<li>Vector <span class="caps">DB</span>: Enables semantic search and similarity-based retrieval of information using vector&nbsp;embeddings</li>
-<li><span class="caps">ML</span> Features: Stores processed features ready for model&nbsp;consumption</li>
-<li>Lake House: Provides structured data warehousing capabilities with the flexibility of data&nbsp;lakes</li>
+
+
+      <li role="presentation"><a href="/pages/about.html"><span>About</span></a></li>
 </ul>
-<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings&nbsp;happen. </p>
-<h2>Planning, Action, and&nbsp;Reflection</h2>
-<p>At the core of the system&#8217;s cognitive abilities is a sophisticated reasoning&nbsp;framework:</p>
-<ul>
-<li><a href="https://arxiv.org/pdf/2201.11903">Chain of Thought</a>: Implements step-by-step reasoning processes that break complex problems into manageable&nbsp;sequences</li>
-<li><a href="https://arxiv.org/pdf/2210.03629">ReAct</a> : Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and&nbsp;adjust</li>
-<li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
-<li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
-</ul>
-<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively. </p>
-<h2>Execution</h2>
-<p>The execution layer transforms reasoning into concrete&nbsp;actions:</p>
-<ul>
-<li>Agents: Autonomous <span class="caps">LLM</span> agents designed to perform specific tasks based on instructions from the planning&nbsp;layer</li>
-<li>Classic <span class="caps">ML</span> Models: Traditional machine learning models that handle specific, well-defined tasks within the broader&nbsp;system</li>
-</ul>
-<p>The execution layer interfaces directly with the Environment, which represents the external world or problem space where the system&nbsp;operates.</p>
-<h2>Governance</h2>
-<p>Our architecture incorporates robust governance controls to ensure responsible <span class="caps">AI</span>&nbsp;deployment:</p>
-<ul>
-<li><span class="caps">AI</span> Guardrails: Safety mechanisms that prevent harmful outputs or&nbsp;actions</li>
-<li>Compliance: Features ensuring adherence to relevant regulations and&nbsp;standards</li>
-<li>Utilization: Monitoring frameworks that track system usage and&nbsp;performance</li>
-</ul>
-<h2>MLOps</h2>
-<p>Supporting the entire architecture is a comprehensive MLOps framework that manages the operational aspects of machine learning deployment, including model versioning, deployment automation, and performance&nbsp;monitoring.</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+<ul class="nav-meta">
+  <li class="nav-search" style="display: none;">
+    <a title="Search">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span>Search</span>
+    </a>
+  </li>
+</ul>  </nav>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/probability-1-20250118.html" rel="bookmark"
-                               title="Permalink to Assigning Confidences to LLM Outputs">Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs</a></h1>
-                    </header>
+  <div class="nav-wrapper-control">
+    <div class="inner">
+      <a class="nav-menu" role="button"><i class="icon icon-menu" aria-hidden="true"></i>Menu</a>
+      <a class="nav-search" title="Search" role="button" style="display: none;"><i class="icon icon-search" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+<div class="nav-close" role="button" aria-label="Close"></div>
+  <section id="wrapper" class="page-wrapper">
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="blog-header  has-cover ">
+      <div class="inner">
+        <div class="box blog-box">
+          <h1 class="blog-name">Play Deliberately</h1>
+        </div>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-01-18T00:00:00-07:00">
-                Published: Sat 18 January 2025
-        </abbr>
+          <div class="blog-cover cover">
+              <img src="https://geekyshacklebolt.github.io/blog/images/my-blog-header-bg.jpg" alt="Play Deliberately" />
+          </div>
+      </div>
+    </header>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/probability.html">Probability</a> </p>        
-</footer><!-- /.post-info -->                        <p><span class="caps">LLM</span> inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a way that is hard to predict and account for. In TruU we have technologies beyond just calibration for accounting for errors …</p>
-                        <a class="readmore" href="/probability-1-20250118.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/klimt_kiss.html" rel="bookmark"
-                               title="Permalink to Klimt - Kiss">Klimt -&nbsp;Kiss</a></h1>
-                    </header>
+<div id="index" class="container">
+  <main class="content" role="main">
+    <div class="extra-pagination">
+<nav class="pagination" aria-label="Pagination" role="pagination">
+  <div class="inner">
+    <div class="box pagination-box">
+      <span class="pagination-info">Page 1 of 2</span>
+      <a title="Older Posts" class="pagination-prev" href="/index2.html"><span class="pagination-label">Older Posts</span> <i class="icon icon-arrow-right"></i></a>
+    </div>
+  </div>
+</nav>
+    </div>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-01-17T10:20:00-07:00">
-                Published: Fri 17 January 2025
-        </abbr>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-<p>tags: <a href="/tag/photograph.html">photograph</a> </p>        
-</footer><!-- /.post-info -->                        <p>Using a large number of images from your
-database to create a desired output. It is
-essentially a matching problem where you
-find the image which most closely matches
-the pixel in your desired image. The original
-image is 4988x5025 and used a thousand
-images as&nbsp;source.</p>
-<p>I did some …</p>
-                        <a class="readmore" href="/klimt_kiss.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/mocap-1-20250225.html" rel="bookmark"
-                               title="Permalink to Performance Capture">Performance&nbsp;Capture</a></h1>
-                    </header>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/llm-1-20250327.html" rel="bookmark" title="Permalink to Agentic Architecture">Agentic&nbsp;Architecture</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/technical.html">Technical</a>
+                      on <time datetime="Thu 27 March 2025">Thu 27 March 2025</time>
+                </span>
+                <p class="post-excerpt">
+                        This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of...
+                </p>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-01-05T00:00:00-07:00">
-                Published: Sun 05 January 2025
-        </abbr>
+                <div class="post-excerpt">
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/movies.html">Movies</a> <a href="/tag/photography.html">Photography</a> </p>        
-</footer><!-- /.post-info -->                        <p>This image was my first foray into motion
-capture for Species in <span class="caps">BOSS</span> days. We all
-looked so young. <span class="caps">SIL</span> motion capture rig was
-all created internally at <span class="caps">BOSS</span> films. You can
-see Richard Edlund on the bottom right.
-This was really early days when we didn&#8217;t
-know what …</p>
-                        <a class="readmore" href="/mocap-1-20250225.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
+                </div>
+            </div>
+        </div>
+    </article>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/integrations.html" rel="bookmark"
-                               title="Permalink to Integrations">Integrations</a></h1>
-                    </header>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-12-23T10:20:00-07:00">
-                Published: Mon 23 December 2024
-        </abbr>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/probability-1-20250118.html" rel="bookmark" title="Permalink to Assigning Confidences to LLM Outputs">Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/technical.html">Technical</a>
+                      on <time datetime="Sat 18 January 2025">Sat 18 January 2025</time>
+                </span>
+                <p class="post-excerpt">
+                        LLM inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a way that is hard to predict and account for. In TruU we have technologies beyond just calibration for...
+                </p>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-        
-</footer><!-- /.post-info -->                        <p>Long Exposures are nothing but integrations
-over a period of time. I think this will be a cool
-way to introduce kids to the concept of time
-and how photography is nothing but an&nbsp;integration&#8230;</p>
-<p>&#8230; maybe there is some sampling in there as&nbsp;well.</p>
-<p><img alt="image" src="/images/red_integrated_xmas.png"></p>
-                        <a class="readmore" href="/integrations.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
+                <div class="post-excerpt">
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/playing-with-bokeh-1.html" rel="bookmark"
-                               title="Permalink to Playing with Bokeh">Playing with&nbsp;Bokeh</a></h1>
-                    </header>
+                </div>
+            </div>
+        </div>
+    </article>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-12-20T10:20:00-07:00">
-                Published: Fri 20 December 2024
-        </abbr>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-<p>tags: <a href="/tag/photograph.html">photograph</a> </p>        
-</footer><!-- /.post-info -->                        <p>Bokeh (pronounced /bo&#8217;ka/) is the visual
-quality of the out-of-focus areas of a
-photographic image, especially as rendered
-by a particular&nbsp;lens.</p>
-<p>Most photo buffs including me primarily get
-high quality Bokeh with good quality glass.
-One quality of bokeh is the fact that out of
-focus highlights usually …</p>
-                        <a class="readmore" href="/playing-with-bokeh-1.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/klimt_kiss.html" rel="bookmark" title="Permalink to Klimt - Kiss">Klimt -&nbsp;Kiss</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Fri 17 January 2025">Fri 17 January 2025</time>
+                </span>
+                <p class="post-excerpt">
+                        Using a large number of images from your database to create a desired output. It is essentially a matching problem where you find the image which most closely matches the pixel in your desired image. The original image is 4988x5025 and used a...
+                </p>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/bayesian-1-20241023.html" rel="bookmark"
-                               title="Permalink to Deep Names for Common Ideas">Deep Names for Common&nbsp;Ideas</a></h1>
-                    </header>
+                <div class="post-excerpt">
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-10-23T00:00:00-06:00">
-                Published: Wed 23 October 2024
-        </abbr>
+                </div>
+            </div>
+        </div>
+    </article>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/bayesian.html">Bayesian</a> </p>        
-</footer><!-- /.post-info -->                        <p>Sometimes, we encounter complex names for concepts we’ve been using all along. Recently, I started exploring Dempster-Shafer Theory (more on that as I learn further) and came across the&nbsp;following:</p>
-<h3>Principle of Insufficient&nbsp;Reason</h3>
-<p>Also known as the Principle of Indifference, which, despite sounding like a bourgeois view of …</p>
-                        <a class="readmore" href="/bayesian-1-20241023.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/multipe-exposure-1.html" rel="bookmark"
-                               title="Permalink to Painting with Light">Painting with&nbsp;Light</a></h1>
-                    </header>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/mocap-1-20250225.html" rel="bookmark" title="Permalink to Performance Capture">Performance&nbsp;Capture</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/technical.html">Technical</a>
+                      on <time datetime="Sun 05 January 2025">Sun 05 January 2025</time>
+                </span>
+                <p class="post-excerpt">
+                        This image was my first foray into motion capture for Species in BOSS days. We all looked so young. SIL motion capture rig was all created internally at BOSS films. You can see Richard Edlund on the bottom right. This was really early days when...
+                </p>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-09-24T10:20:00-06:00">
-                Published: Tue 24 September 2024
-        </abbr>
+                <div class="post-excerpt">
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-<p>tags: <a href="/tag/photograph.html">photograph</a> </p>        
-</footer><!-- /.post-info -->                        <p>I love painting with light&#8230; putting a small
-object in complete darkness and then lighting
-the scene with a small flashlight. Observe the
-two very different renditions of identical&nbsp;composition.</p>
-<p><img alt="image" src="/images/Orchids1.png">
-<img alt="image" src="/images/Orchids2.png"></p>
-                        <a class="readmore" href="/multipe-exposure-1.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
+                </div>
+            </div>
+        </div>
+    </article>
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/martini-on-photons.html" rel="bookmark"
-                               title="Permalink to Martini On Photons">Martini On&nbsp;Photons</a></h1>
-                    </header>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-09-23T10:20:00-06:00">
-                Published: Mon 23 September 2024
-        </abbr>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/integrations.html" rel="bookmark" title="Permalink to Integrations">Integrations</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Mon 23 December 2024">Mon 23 December 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        Long Exposures are nothing but integrations over a period of time. I think this will be a cool way to introduce kids to the concept of time and how photography is nothing but an integration… … maybe there is some sampling in there as well.
+                </p>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-        
-</footer><!-- /.post-info -->                        <h3>Painting with&nbsp;Light</h3>
-<p>Painting with light is just a joy to use. One keeps the camera on the tripod along with a still life and then go around and light the scene with a flashlight as you see fit. Some examples&nbsp;follow. </p>
-<p><img alt="image" src="/images/Martini1.jpg"></p>
-<p>In the images below all the changes are …</p>
-                        <a class="readmore" href="/martini-on-photons.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
+                <div class="post-excerpt">
 
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="/the_little_prince_20250316.html" rel="bookmark"
-                               title="Permalink to The Little Prince">The Little&nbsp;Prince</a></h1>
-                    </header>
+                </div>
+            </div>
+        </div>
+    </article>
 
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2024-01-20T10:20:00-07:00">
-                Published: Sat 20 January 2024
-        </abbr>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/creative.html">Creative</a>.</p>
-<p>tags: <a href="/tag/photograph.html">photograph</a> </p>        
-</footer><!-- /.post-info -->                        <p>This document was created mapping the
-cartesian coordinates to the polar
-coordinates. We were visiting The Cube in
-Orange County and I shot a 360 panorama of
-Devin. So the x axis of the image represented
-the azimuth and the y axes the elevation.
-After that it was a simple …</p>
-                        <a class="readmore" href="/the_little_prince_20250316.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-                    </ol><!-- /#posts-list -->
-  <nav>
-    <ul>
-      <li>Page 1 / 2</li>
-        <li><a href="/index2.html">&rang;</a></li>
-        <li><a href="/index2.html">&Rang;</a></li>
-    </ul>
-  </nav>
-                    </section><!-- /#content -->
-                <section id="extras" class="body">
-                                <div class="blogroll">
-                                        <h2>links</h2>
-                                        <ul>
-                                                        <li><a href="https://TruU.ai">TruU</a></li>
-                                                        <li><a href="https://www.python.org/">Python.org</a></li>
-                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
-                                                        <li><a href="#">You can modify those links in your config file</a></li>
-                                        </ul>
-                                </div><!-- /.blogroll -->
-                                <div class="social">
-                                        <h2>social</h2>
-                                        <ul>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/playing-with-bokeh-1.html" rel="bookmark" title="Permalink to Playing with Bokeh">Playing with&nbsp;Bokeh</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Fri 20 December 2024">Fri 20 December 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        Bokeh (pronounced /bo’ka/) is the visual quality of the out-of-focus areas of a photographic image, especially as rendered by a particular lens. Most photo buffs including me primarily get high quality Bokeh with good quality glass. One quality...
+                </p>
 
-                                                        <li><a href="https://www.linkedin.com/in/agnipankh/">Linked-in</a></li>
-                                        </ul>
-                                </div><!-- /.social -->
-                </section><!-- /#extras -->
+                <div class="post-excerpt">
 
-                <footer id="contentinfo" class="body">
-                        <address id="about" class="vcard body">
-                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                        </address><!-- /#about -->
+                </div>
+            </div>
+        </div>
+    </article>
 
-                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-                </footer><!-- /#contentinfo -->
 
-        </body>
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/bayesian-1-20241023.html" rel="bookmark" title="Permalink to Deep Names for Common Ideas">Deep Names for Common&nbsp;Ideas</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/technical.html">Technical</a>
+                      on <time datetime="Wed 23 October 2024">Wed 23 October 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        Sometimes, we encounter complex names for concepts we’ve been using all along. Recently, I started exploring Dempster-Shafer Theory (more on that as I learn further) and came across the following: Principle of Insufficient Reason Also known as...
+                </p>
+
+                <div class="post-excerpt">
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/multipe-exposure-1.html" rel="bookmark" title="Permalink to Painting with Light">Painting with&nbsp;Light</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Tue 24 September 2024">Tue 24 September 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        I love painting with light… putting a small object in complete darkness and then lighting the scene with a small flashlight. Observe the two very different renditions of identical composition.
+                </p>
+
+                <div class="post-excerpt">
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/martini-on-photons.html" rel="bookmark" title="Permalink to Martini On Photons">Martini On&nbsp;Photons</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Mon 23 September 2024">Mon 23 September 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        Painting with Light Painting with light is just a joy to use. One keeps the camera on the tripod along with a still life and then go around and light the scene with a flashlight as you see fit. Some examples follow. In the images below all the...
+                </p>
+
+                <div class="post-excerpt">
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/the_little_prince_20250316.html" rel="bookmark" title="Permalink to The Little Prince">The Little&nbsp;Prince</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/creative.html">Creative</a>
+                      on <time datetime="Sat 20 January 2024">Sat 20 January 2024</time>
+                </span>
+                <p class="post-excerpt">
+                        This document was created mapping the cartesian coordinates to the polar coordinates. We were visiting The Cube in Orange County and I shot a 360 panorama of Devin. So the x axis of the image represented the azimuth and the y axes the elevation....
+                </p>
+
+                <div class="post-excerpt">
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+<nav class="pagination" aria-label="Pagination" role="pagination">
+  <div class="inner">
+    <div class="box pagination-box">
+      <span class="pagination-info">Page 1 of 2</span>
+      <a title="Older Posts" class="pagination-prev" href="/index2.html"><span class="pagination-label">Older Posts</span> <i class="icon icon-arrow-right"></i></a>
+    </div>
+  </div>
+</nav>
+  </main>
+</div>
+    <div class="nav-footer">
+      <nav class="nav-wrapper" aria-label="Footer">
+        <span class="nav-copy">Play Deliberately &copy; 2023
+        </span>
+        <span class="nav-credits">
+
+
+
+          Published with <a href="https://github.com/getpelican/pelican" rel="nofollow">Pelican</a> &bull; Theme <a href="https://github.com/arulrajnet/attila" rel="nofollow">Attila</a> &bull;
+          <a class="menu-item js-theme" href="#" data-system="System theme" data-dark="Dark theme" data-light="Light theme">
+            <span class="theme-icon"></span><span class="theme-text">System theme</span>
+          </a>
+        </span>
+      </nav>
+    </div>
+
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script type="text/javascript" src="/theme/js/jquery.fitvids.js"></script>
+  <script type="text/javascript" src="/theme/js/script.js"></script>
+
+
+  <!-- 	The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in article.html, but it needs to be included down here, after jQuery has already loaded. -->
+</body>
+
 </html>

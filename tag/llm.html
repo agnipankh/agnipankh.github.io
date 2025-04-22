@@ -1,102 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-                        <meta charset="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                        <meta name="generator" content="Pelican" />
-                        <title>Play Deliberately - LLM</title>
-                        <link rel="stylesheet" href="/theme/css/main.css" />
-        </head>
 
-        <body id="index" class="home">
-                <header id="banner" class="body">
-                        <h1><a href="/">Play Deliberately</a></h1>
-                        <nav><ul>
-                                                <li><a href="/pages/about.html">About</a></li>
-                                                <li><a href="/category/business.html">Business</a></li>
-                                                <li><a href="/category/creative.html">Creative</a></li>
-                                                <li><a href="/category/technical.html">Technical</a></li>
-                        </ul></nav>
-                </header><!-- /#banner -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-                <aside id="featured" class="body">
-                    <article>
-                        <h1 class="entry-title"><a href="/llm-1-20250327.html">Agentic&nbsp;Architecture</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2025-03-27T00:00:00-06:00">
-                Published: Thu 27 March 2025
-        </abbr>
 
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="/author/amit-agrawal.html">Amit Agrawal</a>
-                </address>
-        <p>In <a href="/category/technical.html">Technical</a>.</p>
-<p>tags: <a href="/tag/llm.html">LLM</a> </p>        
-</footer><!-- /.post-info --><p>This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps&nbsp;frameworks.</p>
-<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design. </p>
-<p><img alt="image" src="/images/technical/AgenticPipeline.png"></p>
-<p>An enterprise probably already has these components and we just need to extend them to support&nbsp;Agents. </p>
-<h2>Shared&nbsp;Memory</h2>
-<p>The foundation of this system&#8217;s intelligence is a memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
+  <title>Play Deliberately - Tag LLM</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+<link href="/tag/llm.html" rel="canonical" />
+  <!-- Feed -->
+
+  <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <script>
+    var siteUrl = '';
+  </script>
+
+  <script>
+    var localTheme = localStorage.getItem('attila_theme');
+    switch (localTheme) {
+      case 'dark':
+        document.documentElement.classList.add('theme-dark');
+        break;
+      case 'light':
+        document.documentElement.classList.add('theme-light');
+        break;
+      default:
+        break;
+    }
+  </script>
+
+
+
+
+
+</head>
+
+
+
+
+
+
+
+
+
+<body class="tag-template">
+
+<div class="nav-header">
+  <nav class="nav-wrapper" aria-label="Main">
 <ul>
-<li>Data Lake: Forms the primary storage layer for raw, unprocessed&nbsp;data</li>
-<li>Vector <span class="caps">DB</span>: Enables semantic search and similarity-based retrieval of information using vector&nbsp;embeddings</li>
-<li><span class="caps">ML</span> Features: Stores processed features ready for model&nbsp;consumption</li>
-<li>Lake House: Provides structured data warehousing capabilities with the flexibility of data&nbsp;lakes</li>
-</ul>
-<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings&nbsp;happen. </p>
-<h2>Planning, Action, and&nbsp;Reflection</h2>
-<p>At the core of the system&#8217;s cognitive abilities is a sophisticated reasoning&nbsp;framework:</p>
-<ul>
-<li><a href="https://arxiv.org/pdf/2201.11903">Chain of Thought</a>: Implements step-by-step reasoning processes that break complex problems into manageable&nbsp;sequences</li>
-<li><a href="https://arxiv.org/pdf/2210.03629">ReAct</a> : Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and&nbsp;adjust</li>
-<li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
-<li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
-</ul>
-<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively. </p>
-<h2>Execution</h2>
-<p>The execution layer transforms reasoning into concrete&nbsp;actions:</p>
-<ul>
-<li>Agents: Autonomous <span class="caps">LLM</span> agents designed to perform specific tasks based on instructions from the planning&nbsp;layer</li>
-<li>Classic <span class="caps">ML</span> Models: Traditional machine learning models that handle specific, well-defined tasks within the broader&nbsp;system</li>
-</ul>
-<p>The execution layer interfaces directly with the Environment, which represents the external world or problem space where the system&nbsp;operates.</p>
-<h2>Governance</h2>
-<p>Our architecture incorporates robust governance controls to ensure responsible <span class="caps">AI</span>&nbsp;deployment:</p>
-<ul>
-<li><span class="caps">AI</span> Guardrails: Safety mechanisms that prevent harmful outputs or&nbsp;actions</li>
-<li>Compliance: Features ensuring adherence to relevant regulations and&nbsp;standards</li>
-<li>Utilization: Monitoring frameworks that track system usage and&nbsp;performance</li>
-</ul>
-<h2>MLOps</h2>
-<p>Supporting the entire architecture is a comprehensive MLOps framework that manages the operational aspects of machine learning deployment, including model versioning, deployment automation, and performance&nbsp;monitoring.</p>                    </article>
-                </aside><!-- /#featured -->
-                <section id="extras" class="body">
-                                <div class="blogroll">
-                                        <h2>links</h2>
-                                        <ul>
-                                                        <li><a href="https://TruU.ai">TruU</a></li>
-                                                        <li><a href="https://www.python.org/">Python.org</a></li>
-                                                        <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
-                                                        <li><a href="#">You can modify those links in your config file</a></li>
-                                        </ul>
-                                </div><!-- /.blogroll -->
-                                <div class="social">
-                                        <h2>social</h2>
-                                        <ul>
 
-                                                        <li><a href="https://www.linkedin.com/in/agnipankh/">Linked-in</a></li>
-                                        </ul>
-                                </div><!-- /.social -->
-                </section><!-- /#extras -->
 
-                <footer id="contentinfo" class="body">
-                        <address id="about" class="vcard body">
-                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                        </address><!-- /#about -->
+      <li role="presentation"><a href="/pages/about.html"><span>About</span></a></li>
+</ul>
+<ul class="nav-meta">
+  <li class="nav-search" style="display: none;">
+    <a title="Search">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span>Search</span>
+    </a>
+  </li>
+</ul>  </nav>
 
-                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-                </footer><!-- /#contentinfo -->
+  <div class="nav-wrapper-control">
+    <div class="inner">
+      <a class="nav-menu" role="button"><i class="icon icon-menu" aria-hidden="true"></i>Menu</a>
+      <a class="nav-search" title="Search" role="button" style="display: none;"><i class="icon icon-search" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+<div class="nav-close" role="button" aria-label="Close"></div>
+  <section id="wrapper" class="page-wrapper">
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="blog-header  has-cover ">
+      <div class="inner">
+        <div class="archive archive-tag box archive-box">
+          <span class="archive-info">
+            <span class="archive-type">Tag</span>
+            <span class="archive-count">
+            1 Post
+            </span>
+          </span>
+          <h2 class="archive-title">Llm</h2>
+        </div>
 
-        </body>
+          <div class="blog-cover cover">
+              <img src="https://geekyshacklebolt.github.io/blog/images/my-blog-header-bg.jpg" alt="Tag LLM" />
+          </div>
+      </div>
+    </header>
+
+<div id="index" class="container">
+  <main class="content" role="main">
+    <div class="extra-pagination">
+<nav class="pagination" aria-label="Pagination" role="pagination">
+  <div class="inner">
+    <div class="box pagination-box">
+      <span class="pagination-info">Page 1 of 1</span>
+    </div>
+  </div>
+</nav>
+    </div>
+
+
+
+    <article class="post">
+        <div class="inner">
+            <div class="box post-box">
+                <h2 class="post-title"><a href="/llm-1-20250327.html" rel="bookmark" title="Permalink to Agentic Architecture">Agentic&nbsp;Architecture</a>
+                </h2>
+                <span class="post-meta">
+                    By 
+                        <a class="post-meta-tag" href="/author/amit-agrawal.html">Amit Agrawal</a>
+                     in 
+                    <a class="post-meta-tag" href="/category/technical.html">Technical</a>
+                      on <time datetime="Thu 27 March 2025">Thu 27 March 2025</time>
+                </span>
+                <p class="post-excerpt">
+                        This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of...
+                </p>
+
+                <div class="post-excerpt">
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+<nav class="pagination" aria-label="Pagination" role="pagination">
+  <div class="inner">
+    <div class="box pagination-box">
+      <span class="pagination-info">Page 1 of 1</span>
+    </div>
+  </div>
+</nav>
+  </main>
+</div>
+    <div class="nav-footer">
+      <nav class="nav-wrapper" aria-label="Footer">
+        <span class="nav-copy">Play Deliberately &copy; 2023
+        </span>
+        <span class="nav-credits">
+
+
+
+          Published with <a href="https://github.com/getpelican/pelican" rel="nofollow">Pelican</a> &bull; Theme <a href="https://github.com/arulrajnet/attila" rel="nofollow">Attila</a> &bull;
+          <a class="menu-item js-theme" href="#" data-system="System theme" data-dark="Dark theme" data-light="Light theme">
+            <span class="theme-icon"></span><span class="theme-text">System theme</span>
+          </a>
+        </span>
+      </nav>
+    </div>
+
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script type="text/javascript" src="/theme/js/jquery.fitvids.js"></script>
+  <script type="text/javascript" src="/theme/js/script.js"></script>
+
+
+  <!-- 	The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in article.html, but it needs to be included down here, after jQuery has already loaded. -->
+</body>
+
 </html>
