@@ -374,6 +374,16 @@ function optimizeUserExperience(constraints) {
     padding: 2rem;
     background-color: #f9f9f9;
     border-radius: 5px;
+    color: #333;  /* Add explicit text color */
+}
+
+.technical-column h3, .business-column h3 {
+    color: #222;  /* Darker color for headings */
+    margin-top: 0;
+}
+
+.technical-column p, .business-column p {
+    color: #333;  /* Ensure paragraph text is dark enough */
 }
 
 .divider {
@@ -402,10 +412,16 @@ function optimizeUserExperience(constraints) {
 .business-block ul {
     margin: 0;
     padding-left: 1.5rem;
+    color: #333;  /* Ensure list text is dark enough */
 }
 
 .business-block li {
     margin-bottom: 0.5rem;
+    color: #333;  /* Ensure list text is dark enough */
+}
+
+.business-block strong {
+    color: #222;  /* Darker color for bold text in lists */
 }
 
 /* Connect section */
