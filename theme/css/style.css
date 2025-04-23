@@ -3160,3 +3160,35 @@ button,input,select,textarea {
         display:none
     }
 }
+
+
+
+/* Add these CSS styles to your theme's style.css file */
+
+.post-cover-image {
+    margin: 1em 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.post-cover-image img {
+    transition: transform 0.3s ease;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.post-cover-image img:hover {
+    transform: scale(1.02);
+}
+
+@media only screen and (min-width: 768px) {
+    .post-cover-image {
+        margin: 1.5em 0;
+    }
+}
+
+
