@@ -3169,16 +3169,18 @@ button,input,select,textarea {
     margin: 1em 0;
     overflow: hidden;
     text-align: center;
+    width: 100%; /* Same width as the text content */
 }
 
 .post-cover-image img {
     transition: transform 0.3s ease;
-    max-width: 100%;
+    width: 100%; /* Full width of the container */
     height: auto;
     display: block;
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    object-fit: cover; /* Maintain aspect ratio while filling width */
 }
 
 .post-cover-image img:hover {
@@ -3190,5 +3192,3 @@ button,input,select,textarea {
         margin: 1.5em 0;
     }
 }
-
-
