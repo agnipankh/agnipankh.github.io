@@ -1,131 +1,171 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if we're on an article page
-  const articleContent = document.querySelector('.post-content');
-  if (!articleContent) return;
+  console.log('Related articles script loaded');
 
-  // Function to get the category from the URL
-  function getCurrentCategory() {
-    const path = window.location.pathname;
-    const categoryMatch = path.match(/\/category\/([^\/]+)\.html/);
-    if (categoryMatch) return categoryMatch[1];
+  // Only run on article pages
+  const isArticlePage = document.querySelector('.post-content') !== null;
+  if (!isArticlePage) return;
 
-    // If the URL doesn't contain the category, look for it in the post info
-    const postInfo = document.querySelector('.post-info .post-count');
-    return postInfo ? postInfo.textContent.trim().toLowerCase() : null;
+  // Get the current category and article title
+  const currentCategory = document.querySelector('.post-info .post-count')?.textContent.trim();
+  const currentArticleTitle = document.querySelector('.post-title')?.textContent.trim();
+
+  if (!currentCategory || !currentArticleTitle) {
+    console.log('Could not determine current category or article title');
+    return;
   }
 
-  // Get images from the article to determine the current article
-  function getCurrentArticleImages() {
-    const images = Array.from(articleContent.querySelectorAll('img')).map(img => img.src);
-    return images;
+  console.log('Current category:', currentCategory);
+  console.log('Current article title:', currentArticleTitle);
+
+  // Create the related articles section
+  const relatedSection = document.createElement('section');
+  relatedSection.className = 'related-articles';
+
+  // Set the title
+  const title = document.createElement('h3');
+  title.className = 'related-articles-title';
+  title.textContent = `More from ${currentCategory}`;
+  relatedSection.appendChild(title);
+
+  const grid = document.createElement('div');
+  grid.className = 'related-articles-grid';
+  relatedSection.appendChild(grid);
+
+  // Find insertion point - after the post nav
+  const insertionPoint = document.querySelector('.post-nav');
+  if (!insertionPoint) {
+    console.log('Could not find insertion point');
+    return;
   }
 
-  // Function to create related articles section
-  async function createRelatedArticles() {
-    const category = getCurrentCategory();
-    if (!category) return;
+  // Insert the section
+  insertionPoint.parentNode.insertBefore(relatedSection, insertionPoint.nextSibling);
 
-    const currentArticleImages = getCurrentArticleImages();
-    const currentPath = window.location.pathname;
+  // Function to create a card
+  function createArticleCard(article) {
+    const card = document.createElement('div');
+    card.className = 'related-article-card';
 
-    try {
-      // Request the category page to get all articles
-      const response = await fetch(`/category/${category}.html`);
-      if (!response.ok) return;
+    const link = document.createElement('a');
+    link.href = article.url;
+    link.className = 'related-article-link';
 
-      const html = await response.text();
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'related-article-image';
+
+    if (article.image) {
+      const img = document.createElement('img');
+      img.src = article.image;
+      img.alt = article.title;
+      imageContainer.appendChild(img);
+    } else {
+      const noImageDiv = document.createElement('div');
+      noImageDiv.className = 'related-article-no-image';
+
+      const icon = document.createElement('span');
+      icon.className = 'icon icon-image';
+      noImageDiv.appendChild(icon);
+
+      imageContainer.appendChild(noImageDiv);
+    }
+
+    const titleElement = document.createElement('h4');
+    titleElement.className = 'related-article-title';
+    titleElement.textContent = article.title;
+
+    link.appendChild(imageContainer);
+    link.appendChild(titleElement);
+    card.appendChild(link);
+
+    return card;
+  }
+
+  // Load related articles
+  fetch(`/category/${currentCategory.toLowerCase()}.html`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch category page: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      // Parse HTML
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
 
-      // Get all article cards from the category page
-      const articleCards = Array.from(doc.querySelectorAll('.post-card, .article-card'));
-      if (articleCards.length === 0) return;
+      // Find all articles in the category
+      const articles = [];
+      const articleElements = doc.querySelectorAll('article');
 
-      // Filter out the current article and shuffle the array
-      const filteredCards = articleCards
-        .filter(card => {
+      // If no article elements found, try a different approach
+      if (articleElements.length === 0) {
+        console.log('No article elements found, trying alternative selectors');
+
+        // Try to find post cards
+        const postCards = doc.querySelectorAll('.post-card, .article-card');
+
+        postCards.forEach(card => {
+          const titleElement = card.querySelector('.post-card-title, .article-title, h2');
+          if (!titleElement) return;
+
+          const title = titleElement.textContent.trim();
+          // Skip current article
+          if (title === currentArticleTitle) return;
+
           const link = card.querySelector('a').href;
-          // Filter out the current article by path
-          if (link.includes(currentPath)) return false;
-          return true;
-        })
-        .sort(() => 0.5 - Math.random()); // Shuffle
+          const imageElement = card.querySelector('img');
+          const image = imageElement ? imageElement.src : null;
 
-      // Take only the first 15 items
-      const selectedCards = filteredCards.slice(0, 15);
-      if (selectedCards.length === 0) return;
-
-      // Create related articles section
-      const relatedSection = document.createElement('section');
-      relatedSection.className = 'related-articles';
-
-      // Create title
-      const title = document.createElement('h3');
-      title.className = 'related-articles-title';
-      title.textContent = `More from ${category.charAt(0).toUpperCase() + category.slice(1)}`;
-      relatedSection.appendChild(title);
-
-      // Create grid
-      const grid = document.createElement('div');
-      grid.className = 'related-articles-grid';
-
-      // Create cards
-      selectedCards.forEach(card => {
-        const articleLink = card.querySelector('a').href;
-        const articleTitle = card.querySelector('.post-card-title, .article-title').textContent.trim();
-        let articleImage = card.querySelector('img');
-        articleImage = articleImage ? articleImage.src : null;
-
-        const relatedCard = document.createElement('div');
-        relatedCard.className = 'related-article-card';
-
-        const link = document.createElement('a');
-        link.href = articleLink;
-        link.className = 'related-article-link';
-
-        const imageDiv = document.createElement('div');
-        imageDiv.className = 'related-article-image';
-
-        if (articleImage) {
-          const img = document.createElement('img');
-          img.src = articleImage;
-          img.alt = articleTitle;
-          imageDiv.appendChild(img);
-        } else {
-          const noImageDiv = document.createElement('div');
-          noImageDiv.className = 'related-article-no-image';
-
-          const icon = document.createElement('span');
-          icon.className = 'icon icon-image';
-          noImageDiv.appendChild(icon);
-
-          imageDiv.appendChild(noImageDiv);
-        }
-
-        const titleElement = document.createElement('h4');
-        titleElement.className = 'related-article-title';
-        titleElement.textContent = articleTitle;
-
-        link.appendChild(imageDiv);
-        link.appendChild(titleElement);
-        relatedCard.appendChild(link);
-        grid.appendChild(relatedCard);
-      });
-
-      relatedSection.appendChild(grid);
-
-      // Insert the related articles section before the footer
-      const postFooter = document.querySelector('.post-footer');
-      if (postFooter) {
-        postFooter.parentNode.insertBefore(relatedSection, postFooter.nextSibling);
+          articles.push({
+            title: title,
+            url: link,
+            image: image
+          });
+        });
       } else {
-        articleContent.parentNode.appendChild(relatedSection);
-      }
-    } catch (error) {
-      console.error('Error creating related articles:', error);
-    }
-  }
+        // Process standard article elements
+        articleElements.forEach(article => {
+          const titleElement = article.querySelector('h1, h2');
+          if (!titleElement) return;
 
-  // Call the function
-  createRelatedArticles();
+          const title = titleElement.textContent.trim();
+          // Skip current article
+          if (title === currentArticleTitle) return;
+
+          const link = article.querySelector('a').href;
+          const imageElement = article.querySelector('img');
+          const image = imageElement ? imageElement.src : null;
+
+          articles.push({
+            title: title,
+            url: link,
+            image: image
+          });
+        });
+      }
+
+      console.log(`Found ${articles.length} related articles`);
+
+      // If we have articles, show them
+      if (articles.length > 0) {
+        // Shuffle array
+        articles.sort(() => 0.5 - Math.random());
+
+        // Take up to 15 articles
+        const selectedArticles = articles.slice(0, 15);
+
+        // Add cards to the grid
+        selectedArticles.forEach(article => {
+          const card = createArticleCard(article);
+          grid.appendChild(card);
+        });
+      } else {
+        // No related articles found
+        relatedSection.remove();
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching related articles:', error);
+      relatedSection.remove();
+    });
 });
