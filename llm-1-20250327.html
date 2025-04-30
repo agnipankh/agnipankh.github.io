@@ -80,7 +80,7 @@
 <meta prefix="og: http://ogp.me/ns#" property="article:author" content="/author/amit-agrawal.html">
 <meta prefix="og: http://ogp.me/ns#" property="article:section" content="Technical"/>
 <meta prefix="og: http://ogp.me/ns#" property="article:tag" content="LLM"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://geekyshacklebolt.github.io/blog/images/my-blog-header-bg.jpg">
+<meta prefix="og: http://ogp.me/ns#" property="og:image" content="/images/technical/AgenticPipeline.png">
 
 <!-- Twitter Card -->
 
@@ -97,7 +97,7 @@
     "name": "Amit Agrawal",
     "url": "/author/amit-agrawal.html"
   },
-  "image": "/theme/images/post-bg.jpg",
+  "image": "",
   "url": "/llm-1-20250327.html",
   "description": "This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman..."
 }
@@ -150,7 +150,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="post-header ">
+    <header class="post-header  has-cover ">
       <div class="inner">
         <span class="post-info">
           <span class="post-type">Article</span>
@@ -173,6 +173,9 @@
           </h4>
           <time datetime="Thu 27 March 2025">Thu 27 March 2025</time>
         </div>
+          <div class="post-cover cover">
+              <img src="/images/technical/AgenticPipeline.png" alt="Category Technical" />
+          </div>
       </div>
     </header>
 
@@ -182,9 +185,9 @@
         <div class="inner">
           <section class="post-content">
             <p>This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps&nbsp;frameworks.</p>
-<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design. </p>
+<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design.</p>
 <p><img alt="image" src="/images/technical/AgenticPipeline.png"></p>
-<p>An enterprise probably already has these components and we just need to extend them to support&nbsp;Agents. </p>
+<p>An enterprise probably already has these components and we just need to extend them to support&nbsp;Agents.</p>
 <h2>Shared&nbsp;Memory</h2>
 <p>The foundation of this system&#8217;s intelligence is a memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
 <ul>
@@ -193,7 +196,7 @@
 <li><span class="caps">ML</span> Features: Stores processed features ready for model&nbsp;consumption</li>
 <li>Lake House: Provides structured data warehousing capabilities with the flexibility of data&nbsp;lakes</li>
 </ul>
-<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings&nbsp;happen. </p>
+<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings&nbsp;happen.</p>
 <h2>Planning, Action, and&nbsp;Reflection</h2>
 <p>At the core of the system&#8217;s cognitive abilities is a sophisticated reasoning&nbsp;framework:</p>
 <ul>
@@ -202,7 +205,7 @@
 <li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
 <li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
 </ul>
-<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively. </p>
+<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively.</p>
 <h2>Execution</h2>
 <p>The execution layer transforms reasoning into concrete&nbsp;actions:</p>
 <ul>
