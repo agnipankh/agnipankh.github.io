@@ -219,10 +219,7 @@ $$</div>
 <li>Entropy. In the discrete case, the entropy associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as </li>
 </ul>
 <div class="math">$$\mathcal{H}$$</div>
-<div class="math">$$\mathcal{H}_{ij} = \sum_w 3 $$</div>
-<div class="math">$$\mathcal{H}_{ij} = \sum\limits_{w} 3 $$</div>
-<div class="math">$$\mathcal{H}_{ij} = \sum_{w} 3$$</div>
-<div class="math">$$x_{test}$$</div>
+<div class="math">$$\mathcal{H}_{ij} = -\sum_{w \in \mathcal{D}} p_{ij}(w) \log p_{ij}(w)$$</div>
 <ul>
 <li>Instead of logits, one can measure entropy of the output using the internal states and use it similarly.</li>
 <li>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
