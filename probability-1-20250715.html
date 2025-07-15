@@ -219,11 +219,11 @@ $$</div>
 <li>Entropy. In our case, the entropy associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as </li>
 </ul>
 <div class="math">$$\mathcal{H}_{ij} = -\sum_{w \in \mathcal{D}} p_{ij}(w) \log (p_{ij})(w)$$</div>
-<p>where \mathcal{D}  denotes the dictionary containing all possible words in the model and <span class="math">\(w\)</span> represents a word in \mathcal{D}.</p>
+<p>where <span class="math">\(\mathcal{D}\)</span>  denotes the dictionary containing all possible words in the model and <span class="math">\(w\)</span> represents a word in <span class="math">\(\mathcal{D}\)</span>.</p>
 <ul>
 <li>Perplexity measures how surprised the model is by its own generated text. Its just an exponent of the average negative token log-probability. </li>
 </ul>
-<div class="math">$$ \text{Perplexity}(p) = exp( -\frac{1}{L_i} \sum_j \log(p_{ij})) $$</div>
+<div class="math">$$ \text{Perplexity}(p) = e^{-\frac{1}{L_i} \sum_j \log(p_{ij}))} $$</div>
 <ul>
 <li>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
 <li>Compute the features. Given a training set of tuples \&lt; embedding(Q), embedding(A), T/F&gt; concatenate the two embeddings, so we have the following \&lt; n-dimensional point, T/F&gt;.</li>
