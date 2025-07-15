@@ -211,9 +211,13 @@
 \int_{a}^{b} f(x) dx&nbsp;$$</p>
 <h3>§1.1 White Box&nbsp;Approaches</h3>
 <ul>
-<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If $p_{ij}$ is the &#8220;weight&#8221; of the $j$&#8217;th token for the $i$th sentence, then the average confidence of the sentence is given by where $L_i$ is the number of tokens in the&nbsp;sentence</li>
+<li>Average Token Log-Probability. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If $p_{ij}$ is the &#8220;weight&#8221; of the $j$&#8217;th token for the $i$th sentence, then the average confidence of the sentence is given by where $L_i$ is the number of tokens in the&nbsp;sentence</li>
 </ul>
 <p>$$ \text{Average}(p) = -\frac{1}{L_i} \sum_j \log(p_{ij})&nbsp;$$</p>
+<ul>
+<li>Entropy. In the discrete case, the entropy associated with the output distribution of token $j$ in sentence $i$ is defined&nbsp;as </li>
+</ul>
+<p>$$\mathcal{H}<em _in="\in" _mathcal_D="\mathcal{D" w>{ij} = -\sum</em>(w)$$}} p_{ij}(w) \log&nbsp;p_{ij</p>
 <ul>
 <li>Instead of logits, one can measure entropy of the output using the internal states and use it&nbsp;similarly.</li>
 <li>Using an <span class="caps">ML</span> model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
