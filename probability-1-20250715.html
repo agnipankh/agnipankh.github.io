@@ -217,7 +217,8 @@ $$</div>
 <div class="math">$$ \text{Average}(p) = -\frac{1}{L_i} \sum_j \log(p_{ij}) $$</div>
 <ul>
 <li>
-<p>Entropy. In our case, the entropy associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as <div class="math">$$\mathcal{H}_{ij} = -\sum_{w \in \mathcal{D}} p_{ij}(w) \log (p_{ij})(w)$$</div> where <span class="math">\(\mathcal{D}\)</span>  denotes the dictionary containing all possible words in the model and <span class="math">\(w\)</span> represents a word in <span class="math">\(\mathcal{D}\)</span>.</p>
+<p>Entropy. In our case, the entropy associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as 
+<div class="math">$$\mathcal{H}_{ij} = -\sum_{w \in \mathcal{D}} p_{ij}(w) \log (p_{ij})(w)$$</div> where <span class="math">\(\mathcal{D}\)</span>  denotes the dictionary containing all possible words in the model and <span class="math">\(w\)</span> represents a word in <span class="math">\(\mathcal{D}\)</span>.</p>
 </li>
 <li>
 <p>Perplexity measures how surprised the model is by its own generated text. Its just an exponent of the average negative token log-probability. </p>
