@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="origin" />
   <meta name="generator" content="Pelican" />
-<link href="/probability-1-20250118.html" rel="canonical" />
+<link href="/probability-1-20250715.html" rel="canonical" />
   <!-- Feed -->
 
   <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
@@ -59,7 +59,7 @@
 
 
 
-    <meta name="description" content="LLM inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a...">
+    <meta name="description" content="Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a...">
 
     <meta name="author" content="Amit Agrawal">
 
@@ -71,16 +71,16 @@
 <!-- Open Graph -->
 <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Play Deliberately"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Assigning Confidences to LLM Outputs"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="LLM inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a..."/>
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a..."/>
 <meta prefix="og: http://ogp.me/ns#" property="og:locale" content="en_US"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:url" content="/probability-1-20250118.html"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="/probability-1-20250715.html"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="article"/>
-<meta prefix="og: http://ogp.me/ns#" property="article:published_time" content="2025-01-18 00:00:00-07:00"/>
+<meta prefix="og: http://ogp.me/ns#" property="article:published_time" content="2025-07-15 00:00:00-06:00"/>
 <meta prefix="og: http://ogp.me/ns#" property="article:modified_time" content=""/>
 <meta prefix="og: http://ogp.me/ns#" property="article:author" content="/author/amit-agrawal.html">
 <meta prefix="og: http://ogp.me/ns#" property="article:section" content="Technical"/>
 <meta prefix="og: http://ogp.me/ns#" property="article:tag" content="Probability"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:image" content="/images/technical/20250429_GenAIConfidence_simple_compose_01jt29qzvne5dt9g1sjssthv5m.png">
+<meta prefix="og: http://ogp.me/ns#" property="og:image" content="/images/technical/20250715_GenAIConfidence_simple_compose.png">
 
 <!-- Twitter Card -->
 
@@ -90,7 +90,7 @@
   "@type": "Article",
   "name": "Assigning Confidences to LLM Outputs",
   "headline": "Assigning Confidences to LLM Outputs",
-  "datePublished": "2025-01-18 00:00:00-07:00",
+  "datePublished": "2025-07-15 00:00:00-06:00",
   "dateModified": "",
   "author": {
     "@type": "Person",
@@ -98,8 +98,8 @@
     "url": "/author/amit-agrawal.html"
   },
   "image": "",
-  "url": "/probability-1-20250118.html",
-  "description": "LLM inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a..."
+  "url": "/probability-1-20250715.html",
+  "description": "Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a..."
 }
 </script></head>
 
@@ -170,10 +170,10 @@
           <h4 class="post-meta-author">
             Amit Agrawal
           </h4>
-          <time datetime="Sat 18 January 2025">Sat 18 January 2025</time>
+          <time datetime="Tue 15 July 2025">Tue 15 July 2025</time>
         </div>
           <div class="post-cover cover">
-              <img src="/images/technical/20250429_GenAIConfidence_simple_compose_01jt29qzvne5dt9g1sjssthv5m.png" alt="Category Technical" />
+              <img src="/images/technical/20250715_GenAIConfidence_simple_compose.png" alt="Category Technical" />
           </div>
       </div>
     </header>
@@ -183,8 +183,24 @@
         <article class="post">
         <div class="inner">
           <section class="post-content">
-            <p><span class="caps">LLM</span> inferences tend to be erratically wrong. So, 99% of the time the answer is correct but 1% of the time it may be wrong and wrong in a way that is hard to predict and account for. In TruU we have technologies beyond just calibration for accounting for errors in the deep models. This article looks at the current research on how to solve this&nbsp;problem.</p>
-<h3>White Box&nbsp;Approaches</h3>
+            <h1>Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs</h1>
+<p>This is not the first time that I am encountering decisioning in the presence of uncertainty, a long time ago my PhD thesis involved making reliable decisions in the presence of floating point errors. At TruU we use various techniques (<span class="caps">IP</span> protected) to make reliable decisions in the presence of errors in Deep and traditional <span class="caps">ML</span>&nbsp;models. </p>
+<p><span class="caps">LLM</span> inferences are no different. Since this is language, their are errors beyond simple correctness to account for. Something we encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness. For this article we will focus only on semantic&nbsp;correctness. </p>
+<p>This is an updated version of the article published a few months&nbsp;ago. </p>
+<h2>Terminology</h2>
+<h4>Aleatoric&nbsp;uncertainty</h4>
+<p>Aleatoric uncertainty encompasses the lack of definiteness of the outcome of an event due to the inherent randomness in the process which determines the outcome of the&nbsp;event.</p>
+<p>One way to think about Aleatoric Uncertainty is that one can&#8217;t reduce this uncertainty by giving more data to the model to train&nbsp;on. </p>
+<h4>Epistemic&nbsp;uncertainty.</h4>
+<p>Epistemic uncertainty characterizes the doubt associated with a certain outcome (prediction) due to a lack of knowledge or &#8220;ignorance&#8221; by a&nbsp;model. </p>
+<p>Epistemic uncertainty can be reduced by providing more knowledge to the&nbsp;model. </p>
+<h2>§1 White vs Block Box&nbsp;Approaches</h2>
+<p>We can apply different approaches if the internals of the LLMs are available for us.&nbsp;i</p>
+<p>This is inline math: $E =&nbsp;mc^2$</p>
+<p>This is display&nbsp;math:</p>
+<p>$$
+\int_{a}^{b} f(x) dx&nbsp;$$</p>
+<h3>§1.1 White Box&nbsp;Approaches</h3>
 <ul>
 <li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very&nbsp;reliable.</li>
 <li>Instead of logits, one can measure entropy of the output using the internal states and use it&nbsp;similarly.</li>
@@ -251,16 +267,16 @@ Even though this is provided only for a binary classifier, the same approach can
           <section class="post-footer" >
             <div class="post-share">
               <span class="post-info-label">Share</span>
-              <a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs&amp;url=/probability-1-20250118.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+              <a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs&amp;url=/probability-1-20250715.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="icon icon-twitter" aria-hidden="true"></i><span class="hidden">Twitter</span>
               </a>
-              <a title="Facebook" aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/probability-1-20250118.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+              <a title="Facebook" aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/probability-1-20250715.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                 <i class="icon icon-facebook" aria-hidden="true"></i><span class="hidden">Facebook</span>
               </a>
-              <a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/probability-1-20250118.html&amp;title=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
+              <a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/probability-1-20250715.html&amp;title=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
                 <i class="icon icon-linkedin" aria-hidden="true"></i><span class="hidden">LinkedIn</span>
               </a>
-              <a title="Email" aria-label="Email" class="email" href="mailto:?subject=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs&amp;body=/probability-1-20250118.html">
+              <a title="Email" aria-label="Email" class="email" href="mailto:?subject=Assigning Confidences to <span class="caps">LLM</span>&nbsp;Outputs&amp;body=/probability-1-20250715.html">
                 <i class="icon icon-mail" aria-hidden="true"></i><span class="hidden">Email</span>
               </a>
               <div class="clear"></div>
