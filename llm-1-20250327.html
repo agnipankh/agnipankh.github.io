@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 
-  <title>Agentic&nbsp;Architecture</title>
+  <title>Agentic Architecture</title>
 
 
   <meta name="HandheldFriendly" content="True" />
@@ -79,7 +79,7 @@
 
 <!-- Open Graph -->
 <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Play Deliberately"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Agentic Architecture"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Agentic Architecture"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:description" content="This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman..."/>
 <meta prefix="og: http://ogp.me/ns#" property="og:locale" content="en_US"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="/llm-1-20250327.html"/>
@@ -97,8 +97,8 @@
 {
   "@context": "http://schema.org",
   "@type": "Article",
-  "name": "Agentic Architecture",
-  "headline": "Agentic Architecture",
+  "name": "Agentic Architecture",
+  "headline": "Agentic Architecture",
   "datePublished": "2025-03-27 00:00:00-06:00",
   "dateModified": "",
   "author": {
@@ -164,7 +164,7 @@
           <span class="post-type">Article</span>
           <span class="post-count">Technical</span>
         </span>
-        <h1 class="post-title">Agentic&nbsp;Architecture</h1>
+        <h1 class="post-title">Agentic Architecture</h1>
         <div class="post-meta">
           <div class="post-meta-avatars">
 
@@ -192,60 +192,60 @@
         <article class="post">
         <div class="inner">
           <section class="post-content">
-            <p>This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps&nbsp;frameworks.</p>
-<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final&nbsp;design.</p>
+            <p>This architecture came about when I was thinking about the right components that will enable agents in an enterprise. This is a strawman that integrates multiple specialized components designed to create a robust, intelligent system capable of sophisticated reasoning, execution, and continuous improvement. The architecture consists of five primary components: a) Shared Memory, b) Planning, Action, and Reflection, c) Execution, d) Governance and e) MLOps frameworks.</p>
+<p>Note that no system exists in a vacuum and the any existing stack and architecture will have significant impact on the final design.</p>
 <p><img alt="image" src="/images/technical/AgenticPipeline.png"></p>
-<p>An enterprise probably already has these components and we just need to extend them to support&nbsp;Agents.</p>
-<h2>Shared&nbsp;Memory</h2>
-<p>The foundation of this system&#8217;s intelligence is a memory infrastructure that enables knowledge persistence and&nbsp;retrieval:</p>
+<p>An enterprise probably already has these components and we just need to extend them to support Agents.</p>
+<h2>Shared Memory</h2>
+<p>The foundation of this system's intelligence is a memory infrastructure that enables knowledge persistence and retrieval:</p>
 <ul>
-<li>Data Lake: Forms the primary storage layer for raw, unprocessed&nbsp;data</li>
-<li>Vector <span class="caps">DB</span>: Enables semantic search and similarity-based retrieval of information using vector&nbsp;embeddings</li>
-<li><span class="caps">ML</span> Features: Stores processed features ready for model&nbsp;consumption</li>
-<li>Lake House: Provides structured data warehousing capabilities with the flexibility of data&nbsp;lakes</li>
+<li>Data Lake: Forms the primary storage layer for raw, unprocessed data</li>
+<li>Vector DB: Enables semantic search and similarity-based retrieval of information using vector embeddings</li>
+<li>ML Features: Stores processed features ready for model consumption</li>
+<li>Lake House: Provides structured data warehousing capabilities with the flexibility of data lakes</li>
 </ul>
-<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings&nbsp;happen.</p>
-<h2>Planning, Action, and&nbsp;Reflection</h2>
-<p>At the core of the system&#8217;s cognitive abilities is a sophisticated reasoning&nbsp;framework:</p>
+<p>This shared memory system maintains bidirectional connections with the planning and action components, enabling improvement of the data as learnings happen.</p>
+<h2>Planning, Action, and Reflection</h2>
+<p>At the core of the system's cognitive abilities is a sophisticated reasoning framework:</p>
 <ul>
-<li><a href="https://arxiv.org/pdf/2201.11903">Chain of Thought</a>: Implements step-by-step reasoning processes that break complex problems into manageable&nbsp;sequences</li>
-<li><a href="https://arxiv.org/pdf/2210.03629">ReAct</a> : Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and&nbsp;adjust</li>
-<li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous&nbsp;improvement</li>
-<li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches&nbsp;simultaneously</li>
+<li><a href="https://arxiv.org/pdf/2201.11903">Chain of Thought</a>: Implements step-by-step reasoning processes that break complex problems into manageable sequences</li>
+<li><a href="https://arxiv.org/pdf/2210.03629">ReAct</a> : Integrates reasoning and action in an iterative process, allowing the system to plan, act, observe, and adjust</li>
+<li><a href="https://arxiv.org/pdf/2303.11366">Reflexion</a> : Enables the system to evaluate its own outputs and performance, creating a feedback loop for continuous improvement</li>
+<li><a href="https://arxiv.org/pdf/2305.10601">Tree of Thought</a>: Extends chain-of-thought reasoning with branching decision paths, allowing exploration of multiple solution approaches simultaneously</li>
 </ul>
-<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest&nbsp;iteratively.</p>
+<p>Note that all of them need not be deployed at once. Initially Chain of Thought could be the one implemented and then adding the rest iteratively.</p>
 <h2>Execution</h2>
-<p>The execution layer transforms reasoning into concrete&nbsp;actions:</p>
+<p>The execution layer transforms reasoning into concrete actions:</p>
 <ul>
-<li>Agents: Autonomous <span class="caps">LLM</span> agents designed to perform specific tasks based on instructions from the planning&nbsp;layer</li>
-<li>Classic <span class="caps">ML</span> Models: Traditional machine learning models that handle specific, well-defined tasks within the broader&nbsp;system</li>
+<li>Agents: Autonomous LLM agents designed to perform specific tasks based on instructions from the planning layer</li>
+<li>Classic ML Models: Traditional machine learning models that handle specific, well-defined tasks within the broader system</li>
 </ul>
-<p>The execution layer interfaces directly with the Environment, which represents the external world or problem space where the system&nbsp;operates.</p>
+<p>The execution layer interfaces directly with the Environment, which represents the external world or problem space where the system operates.</p>
 <h2>Governance</h2>
-<p>Our architecture incorporates robust governance controls to ensure responsible <span class="caps">AI</span>&nbsp;deployment:</p>
+<p>Our architecture incorporates robust governance controls to ensure responsible AI deployment:</p>
 <ul>
-<li><span class="caps">AI</span> Guardrails: Safety mechanisms that prevent harmful outputs or&nbsp;actions</li>
-<li>Compliance: Features ensuring adherence to relevant regulations and&nbsp;standards</li>
-<li>Utilization: Monitoring frameworks that track system usage and&nbsp;performance</li>
+<li>AI Guardrails: Safety mechanisms that prevent harmful outputs or actions</li>
+<li>Compliance: Features ensuring adherence to relevant regulations and standards</li>
+<li>Utilization: Monitoring frameworks that track system usage and performance</li>
 </ul>
 <h2>MLOps</h2>
-<p>Supporting the entire architecture is a comprehensive MLOps framework that manages the operational aspects of machine learning deployment, including model versioning, deployment automation, and performance&nbsp;monitoring.</p>
+<p>Supporting the entire architecture is a comprehensive MLOps framework that manages the operational aspects of machine learning deployment, including model versioning, deployment automation, and performance monitoring.</p>
           </section>
 
 
           <section class="post-footer" >
             <div class="post-share">
               <span class="post-info-label">Share</span>
-              <a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Agentic&nbsp;Architecture&amp;url=/llm-1-20250327.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+              <a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Agentic Architecture&amp;url=/llm-1-20250327.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="icon icon-twitter" aria-hidden="true"></i><span class="hidden">Twitter</span>
               </a>
               <a title="Facebook" aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/llm-1-20250327.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                 <i class="icon icon-facebook" aria-hidden="true"></i><span class="hidden">Facebook</span>
               </a>
-              <a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/llm-1-20250327.html&amp;title=Agentic&nbsp;Architecture" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
+              <a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/llm-1-20250327.html&amp;title=Agentic Architecture" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
                 <i class="icon icon-linkedin" aria-hidden="true"></i><span class="hidden">LinkedIn</span>
               </a>
-              <a title="Email" aria-label="Email" class="email" href="mailto:?subject=Agentic&nbsp;Architecture&amp;body=/llm-1-20250327.html">
+              <a title="Email" aria-label="Email" class="email" href="mailto:?subject=Agentic Architecture&amp;body=/llm-1-20250327.html">
                 <i class="icon icon-mail" aria-hidden="true"></i><span class="hidden">Email</span>
               </a>
               <div class="clear"></div>
