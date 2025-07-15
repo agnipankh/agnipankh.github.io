@@ -204,15 +204,19 @@
 <p>Epistemic uncertainty characterizes the doubt associated with a certain outcome (prediction) due to a lack of knowledge or &#8220;ignorance&#8221; by a&nbsp;model. </p>
 <p>Epistemic uncertainty can be reduced by providing more knowledge to the&nbsp;model. </p>
 <h2>§1 White vs Block Box&nbsp;Approaches</h2>
-<p>We can apply different approaches if the internals of the LLMs are available for us.&nbsp;i</p>
+<p>We can apply different approaches if the internals of the LLMs are available for&nbsp;us. </p>
 <p>This is inline math: $E =&nbsp;mc^2$</p>
 <p>This is display&nbsp;math:</p>
 <p>$$
 \int_{a}^{b} f(x) dx&nbsp;$$</p>
 <h3>§1.1 White Box&nbsp;Approaches</h3>
 <ul>
-<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very&nbsp;reliable.</li>
-<li>Instead of logits, one can measure entropy of the output using the internal states and use it&nbsp;similarly.</li>
+<li>
+<p>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If $p_ij$ is&nbsp;the </p>
+</li>
+<li>
+<p>Instead of logits, one can measure entropy of the output using the internal states and use it&nbsp;similarly.</p>
+</li>
 <li>Using an <span class="caps">ML</span> model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of \&lt;Question, Answer, True/False &gt;<ul>
 <li>Compute the features. Given a training set of tuples \&lt; embedding(Q), embedding(A), T/F&gt; concatenate the two embeddings, so we have the following \&lt; n-dimensional point,&nbsp;T/F&gt;.</li>
 <li>Run a logistic regression on this data such that Function(Q,A) = probability of&nbsp;correctness</li>
