@@ -211,7 +211,7 @@
 \int_{a}^{b} f(x) dx&nbsp;$$</p>
 <h3>§1.1 White Box&nbsp;Approaches</h3>
 <ul>
-<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If $p_{ij}$ is the &#8220;weight&#8221; of the $j$&#8217;th token for the $i$th sentence, then the averager confidence is given&nbsp;by </li>
+<li>Logits in the last layer. These approaches look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If $p_{ij}$ is the &#8220;weight&#8221; of the $j$&#8217;th token for the $i$th sentence, then the average confidence of the sentence is given by where $L_i$ is the number of tokens in the&nbsp;sentence</li>
 </ul>
 <p>$$ \text{Average}(p) = -\frac{1}{L_i} \sum_j \log(p_{ij})&nbsp;$$</p>
 <ul>
