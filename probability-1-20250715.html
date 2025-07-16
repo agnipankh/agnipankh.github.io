@@ -221,7 +221,7 @@
 </p>
 </li>
 <li>
-<p>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of question and answer tuples,  <span class="math">\((Q_i, A_i, p ) \text{where} p \in \text{true,false}\)</span></p>
+<p>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of question and answer tuples,  <span class="math">\((Q_i, A_i, p ) \text{ where } p \in \text{true,false}\)</span></p>
 <ul>
 <li>Compute the features. Given a training set of tuples <span class="math">\((embedding(Q_i), embedding(A_i),p)\)</span> concatenate the two embeddings, so we have the following <span class="math">\((P_i^k, p)\\)</span>.</li>
 <li>Run a logistic regression on this data such that Function(Q,A) = probability of correctness</li>
