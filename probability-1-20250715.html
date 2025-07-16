@@ -241,7 +241,8 @@
 <p><strong>Semantic-Similarity Uncertainty</strong> Ask LLM the same question multiple times using different random seeds or temperature settings. At that point we can go multiple routes. There is</p>
 <ul>
 <li>
-<p><strong>Graph Based Methods</strong> Use Natural Language Inference (NLI) models to score entailment and contradiction between every pair of generated outputs. Create an adjacency matrix of this graph. Now one can bring the entire machinary of graph theory to bear on this problem. We can look at Eccentricity of the graph <span class="math">\(\mathrm{ecc}(v) = \max_{u \in V} \mathrm{dist}(v, u)\)</span></p>
+<p><strong>Graph Based Methods</strong> Use Natural Language Inference (NLI) models to score entailment and contradiction between every pair of generated outputs. Create an adjacency matrix of this graph. Now one can bring the entire machinary of graph theory to bear on this problem. We can look at Eccentricity of the graph <div class="math">$$\mathrm{ecc}(v) = \max_{u \in V} \mathrm{dist}(v, u)$$</div>
+</p>
 </li>
 <li>
 <p>[<strong>Pedapati et al. 2024</strong>] Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute these 3 features:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) SRC minimum value (Self Referenced Confidence). Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the LLM.</p>
