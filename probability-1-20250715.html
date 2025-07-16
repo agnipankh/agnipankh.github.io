@@ -229,7 +229,7 @@
 </ul>
 </li>
 </ul>
-<h3>Black Box Approaches</h3>
+<h3>§1.2 Black Box Approaches</h3>
 <p>These are the bigger subset of the research as these approaches have wider applicability. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important target.</p>
 <ul>
 <li><strong>Self-Verbalized Uncertainty</strong> A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking LLM compute the confidence of its output to different ways in which we can have LLMs self reflect on the results. There are many variations of this approach. <ul>
@@ -238,9 +238,14 @@
 </ul>
 </li>
 <li>
-<p><strong>Semantic-Similarity Uncertainty</strong> Ask LLM the same question multiple times using different random seeds or temperature settings. At that point we can go </p>
+<p><strong>Semantic-Similarity Uncertainty</strong> Ask LLM the same question multiple times using different random seeds or temperature settings. At that point we can go multiple routes. There is</p>
 <ul>
-<li>[<strong>Pedapati et al. 2024</strong>] Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute these 3 features:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) SRC minimum value (Self Referenced Confidence). Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the LLM.</li>
+<li>
+<p><strong>Graph Based Methods</strong> Use Natural Language Inference (NLI) models to score entailment and contradiction between every pair of generated outputs. Create an adjacency matrix of this graph. Now one can bring the entire machinary of graph theory to bear on this problem. We can look at Eccentricity of the graph <span class="math">\(\mathrm{ecc}(v) = \max_{u \in V} \mathrm{dist}(v, u)\)</span></p>
+</li>
+<li>
+<p>[<strong>Pedapati et al. 2024</strong>] Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute these 3 features:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) SRC minimum value (Self Referenced Confidence). Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the LLM.</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -266,6 +271,9 @@
 </li>
 <li>
 <p>[<strong>Wagner et al. 2024</strong>]Wagner, Nico, et al. "Black-box Uncertainty Quantification Method for LLM-as-a-Judge." <em>arXiv preprint arXiv:2410.11594</em>(2024).</p>
+</li>
+<li>
+<p>[<strong>Zhen et al. 2023</strong>] Generating with Confidence: Uncertainty Quantification for Black-box Large Language Models. Transactions on Machine Learning Research (2023)</p>
 </li>
 </ul>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
