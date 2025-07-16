@@ -242,8 +242,7 @@
 </ul>
 </li>
 <li>
-<p><strong>Graph Based: Kernel Language Entropy</strong>. In this approach an embedding space is chosen where the outputs are mapped. If <span class="math">\(y_i\)</span> are the various outputs from the question, then let <span class="math">\(e_i\)</span> be the corresponding embeddings. Then <div class="math">$$K(e_i, e_j) = \exp\left(-\frac{\|e_i - e_j\|^2}{2\sigma^2}\right)$$</div>
-</p>
+<p><strong>Graph Based: Kernel Language Entropy</strong>. In this approach an embedding space is chosen where the outputs are mapped. If <span class="math">\(y_i\)</span> are the various outputs from the question, then let <span class="math">\(e_i\)</span> be the corresponding embeddings. Then <span class="math">\(K(e_i, e_j) = \exp\left(-\frac{\|e_i - e_j\|^2}{2\sigma^2}\right)\)</span></p>
 <ul>
 <li>[<strong>Pedapati et al. 2024</strong>] Get a data set which has the Question and Answers. Pertub the questions by various means to generate 100s of questions. These will generate lots of different answers. For each of these question answer sessions compute these 3 features:  (a) semantic set of the outputs, (b) lexical similarities of the outputs (rouge score), and (c) SRC minimum value (Self Referenced Confidence). Now we know whether the answer generated was correct or not, so given these features and the correctness of answer we can create a logistic regression. When attempting an answer in the live setting we once again compute these 3 features and predict the confidence in the result. The fundamental insight is that these features capture the knowledge and the correctness of the knowledge of the LLM.</li>
 </ul>
