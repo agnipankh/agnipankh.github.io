@@ -232,9 +232,7 @@
 <h3>Black Box Approaches</h3>
 <p>These are the bigger subset of the research as these approaches have wider applicability. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important target.</p>
 <ul>
-<li>
-<p><strong>Self-Verbalized Uncertainty</strong> A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking LLM compute the confidence of its output to different ways in which we can have LLMs self reflect on the results. There are many variations of this approach. </p>
-<ul>
+<li><strong>Self-Verbalized Uncertainty</strong> A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking LLM compute the confidence of its output to different ways in which we can have LLMs self reflect on the results. There are many variations of this approach. <ul>
 <li>[<strong>Wagner et al. 2024</strong>] To evaluate an answer, one can ask a question and generate features by assuming the answer is correct or incorrect, creating various rationales for both cases, then asking a language model to predict the probability of correctness given the rationale (and vice versa), using these predictions to build a confusion matrix and estimate confidence—an approach that, while demonstrated for binary classification, can also be extended to multi-class questions.</li>
 <li>[<strong>Becker and Soatto 2024</strong>] An interesting variant that goes a little deeper. Generate explanations for each of the answers. Figure out entailment probability of each of the explanations. Figure out the distribution of the answers given the explanation and then marginalize the explanations given an answer. My mathematical bent appreciates this approach but there is no way to say whether this is any better than any of the simpler ones. </li>
 </ul>
