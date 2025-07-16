@@ -223,10 +223,9 @@
 <li>
 <p>Using an ML model on Embeddings[<strong>Ren et al. 2022</strong> ]: For LLMs where embeddings for input and output were present. Given a training set with a set of question and answer tuples,  <span class="math">\((Q_i, A_i, p ) \text{ where } p \in \text{true,false}\)</span></p>
 <ul>
-<li>Compute the features. Given a training set of tuples <span class="math">\((embedding(Q_i), embedding(A_i),p)\)</span> concatenate the two embeddings, so we have the following <span class="math">\((P_i, p)\)</span>.</li>
+<li>Compute the features. Given a training set of tuples <span class="math">\((embedding(Q_i), embedding(A_i),p)\)</span> concatenate the two embeddings, so we have the following <span class="math">\((P_i, p) \text{ where } P_i \in \mathcal{R}\)</span></li>
 <li>Run a logistic regression on this data such that Function(Q,A) = probability of correctness</li>
-<li>When the LLM produces an answer <span class="math">\(A_i\)</span> given a question <span class="math">\(Q_i\)</span>, we can use the logistic regression to compute a confidence in the result.
-So, the idea being that if an LLM has good knowledge about a certain subset of the embedding space, then it will continue to have correct knowledge about that space.</li>
+<li>When the LLM produces an answer <span class="math">\(A_i\)</span> given a question <span class="math">\(Q_i\)</span>, we can use the logistic regression to compute a confidence in the result.</li>
 </ul>
 </li>
 </ul>
