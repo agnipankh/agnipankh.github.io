@@ -68,7 +68,7 @@
 
 
 
-    <meta name="description" content="Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a...">
+    <meta name="description" content="This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP...">
 
     <meta name="author" content="Amit Agrawal">
 
@@ -80,7 +80,7 @@
 <!-- Open Graph -->
 <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="Play Deliberately"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:title" content="Assigning Confidences to LLM Outputs"/>
-<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a..."/>
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP..."/>
 <meta prefix="og: http://ogp.me/ns#" property="og:locale" content="en_US"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:url" content="/probability-1-20250715.html"/>
 <meta prefix="og: http://ogp.me/ns#" property="og:type" content="article"/>
@@ -108,7 +108,7 @@
   },
   "image": "",
   "url": "/probability-1-20250715.html",
-  "description": "Assigning Confidences to LLM Outputs This is not the first time that I am encountering decisioning in the presence of uncertainty, a..."
+  "description": "This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP..."
 }
 </script></head>
 
@@ -192,9 +192,8 @@
         <article class="post">
         <div class="inner">
           <section class="post-content">
-            <h1>Assigning Confidences to LLM Outputs</h1>
-<p>This is not the first time that I am encountering decisioning in the presence of uncertainty, a long time ago my PhD thesis involved making reliable decisions in the presence of floating point errors. At TruU we use various techniques (IP protected) to make reliable decisions in the presence of errors in Deep and traditional ML models. </p>
-<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for. Something we encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness etc. For this article we will focus only on semantic correctness. </p>
+            <p>This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP protected) to make reliable decisions in the presence of errors in Deep and traditional ML models. A long time ago my PhD thesis involved making reliable decisions in the presence of floating point errors. </p>
+<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for. Something I encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness etc. For this articleI will focus only on semantic correctness. </p>
 <p>This is an updated version of the article published a few months ago. </p>
 <h2>Terminology</h2>
 <h4>Aleatoric uncertainty</h4>
@@ -207,28 +206,22 @@
 <p>We can apply different approaches if the internals of the LLMs are available for us. </p>
 <h3>§1.1 White Box Approaches</h3>
 <ul>
-<li><strong>Average Negative Token Log-Probability</strong> look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a statistical metric (mean, max, median) for all the tokens in the output.[<strong>Duan et al 2023</strong>], [<strong>Kuhn et al. 2023</strong>] Even though they are pretty commonly used they are not known to be very reliable. If <span class="math">\(p_{ij}\)</span> is the "weight" of the <span class="math">\(j\)</span>'th token for the <span class="math">\(i\)</span>th sentence, then the average confidence of the sentence is given by where <span class="math">\(L_i\)</span> is the number of tokens in the sentence</li>
-</ul>
-<div class="math">$$ \text{Average}(p) = -\frac{1}{L_i} \sum_j \log(p_{ij}) $$</div>
-<ul>
+<li>
+<p><strong>Average Negative Token Log-Probability</strong> look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a mean for all the tokens in the output.[<strong>Duan et al 2023, Kuhn et al. 2023</strong>]If <span class="math">\(p_{ij}\)</span> is the "weight" of the <span class="math">\(j\)</span>'th token for the <span class="math">\(i\)</span>th sentence, then the average confidence of the sentence is given by where <span class="math">\(L_i\)</span> is the number of tokens in the sentence <div class="math">$$ \text{Average}(p_i) = -\frac{1}{L_i} \sum_j \log(p_{ij}) $$</div> Other statistical metrics can be used as well. </p>
+</li>
 <li>
 <p><strong>Entropy</strong> associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as 
 <div class="math">$$\mathcal{H}_{ij} = -\sum_{w \in \mathcal{D}} p_{ij}(w) \log (p_{ij})(w)$$</div> where <span class="math">\(\mathcal{D}\)</span>  denotes the dictionary containing all possible words in the model and <span class="math">\(w\)</span> represents a word in <span class="math">\(\mathcal{D}\)</span>.</p>
 </li>
 <li>
-<p><strong>Perplexity</strong>  measures how surprised the model is by its own generated text. Its just an exponent of the average negative token log-probability. It is preferred by some researchers as it is a little bit more understandable compared to negative log-prob. 
-<div class="math">$$ \text{Perplexity}(p) = e^{-\frac{1}{L_i} \sum_j \log(p_{ij}))} $$</div>
-</p>
+<p><strong>Perplexity</strong>  is the exponent of the average negative token log-probability. It is preferred by some researchers as it is more interpretable compared to negative log-prob. <div class="math">$$ \text{Perplexity}(p) = 2^{-\frac{1}{L_i} \sum_j \log(p_{ij}))} $$</div> A perplexity of <span class="math">\(k\)</span> intuitively means that a model has <span class="math">\(k\)</span> choices to choose from, whereas an <strong>average negative log-probability</strong> only means a number where lower is better. </p>
 </li>
 <li>
-<p><strong>Models on Internal data of LLM</strong> </p>
-<ul>
-<li>[<strong>Ren et al. 2022</strong> ]: For LLMs with available input and output embeddings, this method trains a logistic regression classifier on concatenated question-answer embedding pairs labeled with correctness to produce a confidence function that can estimate the probability of correctness for any new LLM-generated answer given its question.</li>
-</ul>
+<p><strong>Models on Internal data of LLM</strong> [<strong>Ren et al. 2022</strong>]  For LLMs with available input and output embeddings, this method trains a logistic regression classifier on concatenated question-answer embedding pairs labeled with correctness to produce a confidence function that can estimate the probability of correctness for any new LLM-generated answer given its question. </p>
 </li>
 </ul>
 <h3>§1.2 Black Box Approaches</h3>
-<p>These are the bigger subset of the research as these approaches have wider applicability. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important target.</p>
+<p>These are the bigger subset of coverage here as these approaches have wider applicability for a practitioner. A lot of commercially available LLMs are closed sourced so producing some level of confidence on their outputs continues to be an important target.</p>
 <ul>
 <li><strong>Self-Verbalized Uncertainty</strong> A lot of these ideas fall into the category of asking LLMs to reflect on their work. This can be as simple as asking LLM compute the confidence of its output to different ways in which we can have LLMs self reflect on the results. There are many variations of this approach. <ul>
 <li>[<strong>Wagner et al. 2024</strong>] To evaluate an answer, one can ask a question and generate features by assuming the answer is correct or incorrect, creating various rationales for both cases, then asking a language model to predict the probability of correctness given the rationale (and vice versa), using these predictions to build a confusion matrix and estimate confidence—an approach that, while demonstrated for binary classification, can also be extended to multi-class questions.</li>
@@ -236,7 +229,7 @@
 </ul>
 </li>
 <li><strong>Semantic-Similarity Uncertainty</strong> Ask LLM the same question multiple times using different random seeds or temperature settings. At that point we can go multiple routes. There is<ul>
-<li><strong>Graph Based: Pairwise Connections</strong> Use Natural Language Inference (NLI) models to score entailment and contradiction between every pair of generated outputs. Create an adjacency matrix of this graph. Now one can bring the entire machinary of graph theory to bear on this problem. For example, we can look at Eccentricity of the graph. For a node <span class="math">\(v\)</span> in the graph <span class="math">\(\mathcal{G}\)</span>  <span class="math">\(\text{ecc}(v)\)</span> is the maximum <strong>shortest path</strong> distance from <span class="math">\(v\)</span> to any other node. <span class="math">\(\text{ecc}(v) = \max\limits_{u \in V} \text{dist}(v, u)\)</span>. High eccentricity → wide semantic variability. <span class="math">\(\text{radius}(\mathcal{G}) = \min\limits_{v \in V} \text{ecc}(v)\)</span> and <span class="math">\(\text{diameter}(\mathcal{G}) = \max\limits_{v \in V} \text{ecc}(v)\)</span>. By computing <span class="math">\(\text{radius}\)</span> and <span class="math">\(\text{diameter}\)</span> one can make various claims about the uncertainty in the result. In addition, we could compute spectral entropy, eigenvalue spread, and others. </li>
+<li><strong>Graph Based: Pairwise Connections</strong> Use Natural Language Inference (NLI) models to score entailment and contradiction between every pair of generated outputs. Create an adjacency matrix of this graph. Now one can bring the entire machinary of graph theory to bear on this problem. For example, we can look at Eccentricity of the graph. For a node <span class="math">\(v\)</span> in the graph <span class="math">\(\mathcal{G}\)</span>,  <span class="math">\(\text{ecc}(v)\)</span> is the maximum <strong>shortest path</strong> distance from <span class="math">\(v\)</span> to any other node. <span class="math">\(\text{ecc}(v) = \max\limits_{u \in V} \text{dist}(v, u)\)</span>. High eccentricity → wide semantic variability. <span class="math">\(\text{radius}(\mathcal{G}) = \min\limits_{v \in V} \text{ecc}(v)\)</span> and <span class="math">\(\text{diameter}(\mathcal{G}) = \max\limits_{v \in V} \text{ecc}(v)\)</span>. By computing <span class="math">\(\text{radius}\)</span> and <span class="math">\(\text{diameter}\)</span> one can make various claims about the uncertainty in the result. In addition, we could compute spectral entropy, eigenvalue spread, and others. </li>
 </ul>
 </li>
 <li><strong>Graph Based: Kernel Language Entropy</strong>. In this approach an embedding space is chosen where the outputs are mapped. If <span class="math">\(y_i\)</span> are the various outputs from the question, then let <span class="math">\(e_i\)</span> be the corresponding embeddings. Then <div class="math">$$K(e_i, e_j) = \exp\left(-\frac{\|e_i - e_j\|^2}{2\sigma^2}\right)$$</div> can be used to create an <span class="math">\(n \times n\)</span> similarity matrix <span class="math">\(K\)</span>, that can tell how semantically each output is to othes. Given this matrix we can compute either the spectral entropy or the Renyi entropy. Renyi entropy (<span class="math">\(H_{KLE}\)</span> shown below) measures the geometric dispersion of the responses is better for this graph, spectral entropy which measures the connectedness of the graph is better suited for the connection graph shown earlier. </li>
@@ -244,18 +237,17 @@
 <div class="math">$$H_{KLE} = -\log\left(\frac{1}{n^2} \sum_{i=1}^{n} \sum_{j=1}^{n} K(e_i, e_j)\right)$$</div>
 <ul>
 <li>
-<p><strong>Reasoning Uncertainty</strong> Extend previous approaches to Reasoning steps. For example in a Chain-of-Thought. Measure uncertainty for each steps and then combine it, giving us CoT-UQ. Similarly Tree-of-Thought (ToT) can be extended to Tree-of-uncertain-Thought (ToUT) by computing uncertainties at each of the branching points. Assigns uncertainty scores to decision points. Allows backtracking when uncertainty is high. </p>
+<p><strong>Reasoning Uncertainty</strong> Extend any of the previous approaches to Reasoning steps. For example in a Chain-of-Thought. Measure uncertainty for each steps and then combine it, giving us CoT-UQ [Zhang et al. 2025]. Similarly Tree-of-Thought (ToT) can be extended to Tree-of-uncertain-Thought (ToUT) by computing uncertainties at each of the branching points[<strong>Mo et al. 2024</strong>]
+. Assigns uncertainty scores to decision points. Allows backtracking when uncertainty is high. </p>
 </li>
 <li>
-<p><strong>Conformal Prediction</strong> Assume that you have a calibration set that follows the distribution of the population. If this assumption is met, this approach can deliver guaranteed results. <span class="math">\(\mathcal{D}_{\text{cal}} = \{(x_i, y_i)\}_{i=1}^n\)</span> Each <span class="math">\(x_i\)</span> is an input (e.g. a prompt) and <span class="math">\(y_i\)</span> is its true label. Define a nonconformity score <span class="math">\(S(x, \hat{y}, y)\)</span> that tells you: how bad is the model's prediction <span class="math">\(\hat{y}\)</span> given the true answer <span class="math">\(y\)</span>. For a simple classification example this could be <span class="math">\(S = 1 - P(\hat{y})\)</span>. Now we compute the threshold <span class="math">\(\tau\)</span> such that the error is guaranteed to be less than <span class="math">\(\alpha\)</span>. From the calibration set compute <span class="math">\(s_i = S(x_i, \hat{y}_i, y_i) \text{ for } i = 1,\dots,n\)</span>. Then compute the <span class="math">\((1-\alpha)-\text{quantile}\)</span> of the scores: <span class="math">\(\tau = \text{Quantile}_{1-\alpha}(s_i,\dots,s_n)\)</span>. This is the threshold for acceptable non-conformity. Given a new input <span class="math">\(x_new\)</span>, create multiple outputs <span class="math">\(\hat{y}_1,\dots,\hat{y}_k\)</span>. Select the predictions with <span class="math">\(S(x_{new},\hat{y}_j) \leq \tau\)</span>. These are guaranteed to be correct with a probabilty <span class="math">\(\geq 1 - \alpha\)</span>. </p>
+<p><strong>Conformal Prediction</strong> Assume that you have a calibration set that follows the distribution of the population. If this assumption is met, this approach can deliver guaranteed results. <span class="math">\(\mathcal{D}_{\text{cal}} = \{(x_i, y_i)\}_{i=1}^n\)</span> Each <span class="math">\(x_i\)</span> is an input (e.g. a prompt) and <span class="math">\(y_i\)</span> is its true label. Define a nonconformity score <span class="math">\(S(x, \hat{y}, y)\)</span> that tells you: how bad is the model's prediction <span class="math">\(\hat{y}\)</span> given the true answer <span class="math">\(y\)</span>. For a simple classification example this could be <span class="math">\(S = 1 - P(\hat{y})\)</span>. Now we compute the threshold <span class="math">\(\tau\)</span> such that the error is guaranteed to be less than <span class="math">\(\alpha\)</span>. From the calibration set compute <span class="math">\(s_i = S(x_i, \hat{y}_i, y_i) \text{ for } i = 1,\dots,n\)</span>. Then compute the <span class="math">\((1-\alpha)-\text{quantile}\)</span> of the scores: <span class="math">\(\tau = \text{Quantile}_{1-\alpha}(s_i,\dots,s_n)\)</span>. This is the threshold for acceptable non-conformity. Given a new input <span class="math">\(x_new\)</span>, create multiple outputs <span class="math">\(\hat{y}_1,\dots,\hat{y}_k\)</span>. Select the predictions with <span class="math">\(S(x_{new},\hat{y}_j) \leq \tau\)</span>. These are guaranteed to be correct with a probabilty <span class="math">\(\geq 1 - \alpha\)</span>. [<strong>Su, Jiayuan, et al. 2024</strong>] </p>
 </li>
 </ul>
 <h2>§2 Mechanistic Interpretability</h2>
 <p>Even though mechanistic interpretibility is a white box technique it deserves its own section because its perpose is to truly understand how LLM understands the world and perhaps the ability to interpret the results. Some concepts from this approach</p>
 <ul>
-<li>
-<p>Superposition, polysemanticity, circular and multi-dimensional representations. Typically a <span class="math">\(n\)</span> dimensional space can encode <span class="math">\(n\)</span> unique features. So, for example when the concept "Golden Gate" is present, then a certain set of neurons will fire. However, for LLMs neural networks represent more features than it has dimensions. This phenomenon called superposition, shows that <span class="math">\(n\)</span> dimensional space can capture <span class="math">\(m\)</span> unique features when <span class="math">\(m &gt; n\)</span>. This can make interpretability harder. The converse of this is that we can have one set of neurons encode multiple different concepts, polysemanticity. However, this still posits that even though overlapping, features are linear combination of dimensions. However [Engles et. al 2024] found features that are circularly dependent. Features for the days of the week and months in the year were circularly represented. </p>
-</li>
+<li><strong>Superposition, polysemanticity, and circular representations</strong> Neural networks typically represent features in a straightforward manner where an n-dimensional space can encode n unique features—for instance, when the concept "Golden Gate" is present, a specific set of neurons will activate. However, LLM neural networks exhibit a phenomenon called superposition, where they represent more features than they have dimensions, meaning an n-dimensional space can capture m unique features when m &gt; n, making interpretability significantly more challenging. The converse phenomenon is polysemanticity, where a single set of neurons can encode multiple different concepts. While these concepts may overlap, the prevailing theory suggests that features still exist as linear combinations of dimensions. Recent research has revealed even more complex representational structures, with [Engels et al. 2024] discovering features that are circularly dependent, finding that concepts like days of the week and months of the year are represented in circular patterns within the neural network's feature space.</li>
 <li>
 <p>Probing Classifier. Say we want to see if a particular hidden feature encodes the concept "animal". We send various sentences through the NN and get the values of various hidden layers. If we can train a NN that can predict an animal using some subsets of some hidden layers then we can say that those parameters encode the concept "animal". </p>
 </li>
@@ -286,6 +278,11 @@
 <p>Toy models of superposition. arXiv preprint arXiv:2209.10652 (2022).  </p>
 <p>Yonatan Belinkov. 2022. Probing classiiers: Promises, shortcomings, and advances. Computational Linguistics 48, 1 (2022)
 Hoagy Cunningham, Aidan Ewart, Logan Riggs, Robert Huben, and Lee Sharkey. 2023. Sparse autoencoders ind highly interpretable  features in language models. arXiv preprint arXiv:2309.08600 (2023).</p>
+<p>[Zhang et al. 2025]
+Boxuan Zhang and Ruqi Zhang. 2025. CoT-UQ: Improving Response-wise  Uncertainty Quantification in LLMs with Chain-of-Thought. arXiv preprint  arXiv:2502.17214 (2025).</p>
+<p>[<strong>Mo et al. 2024</strong>]
+Shentong Mo and Miao Xin. 2024. Tree of uncertain thoughts reasoning for  large language models. In ICASSP 2024-2024 IEEE International Conference on  Acoustics, Speech and Signal Processing (ICASSP). IEEE, 12742–12746</p>
+<p>[<strong>Su, Jiayuan, et al. 2024</strong>] Api is enough: Conformal prediction for large language models without logit-access." arXiv preprint arXiv:2403.01216 (2024).</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
