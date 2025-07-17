@@ -244,8 +244,11 @@
 <li><strong>Sparse Autoencoders (SAEs)</strong> SAEs help solve the problem of superposition and polysemanticity but training a high dimensional autoencoder so that we can disentangle the polysemanticity and unique vectors encode unique concepts. This leads to more interpretable features, can allow for some control of the LLMs. So, if there is a region of the features which encodes uncertainty we can make the LLM overconfident by turning if off. </li>
 </ul>
 <h2>§3  Thoughts</h2>
-<p>The intellectual side of me really likes the previous section so that we can finally understand why certain decisions were made and make AI truly safe. However, the practioner side of me has more immediate concerns and looks like we have lots of choices to pick from. For the applications I am interested in, I will probably pick a variant of Conformal Prediction because it gives a guaranteed outcome and we can make appropriate decisions when the uncertainty is high. </p>
-<p>The challenge though is finding a calibration set that matches the population.  </p>
+<p>The intellectual side of me really likes the previous section so that we can finally understand why certain decisions were made and make AI truly safe. However, the practioner side of me has more immediate concerns and looks like we have lots of choices to pick from. </p>
+<p>What I have found in practice to work best are:
+* Use multiple models from different families, and use their ensemble.
+* Rather than attempting to give a high fidelity answer, give an answer when u are sure but choose not to give an answer whenever in doubt. So, e.g. if you are using google, OpenAI and Anthropic as your models, give an answer with a lot of certainty when all three models agree and not give any answer when there is any disagreement.
+* If you can find a calibration set matching the population, use Conformal Prediction, but as always genius is in the details. </p>
 <h2>§4 References</h2>
 <ul>
 <li>[Becker and Soatto 2024] Becker, Evan, and Stefano Soatto. "Cycles of Thought: Measuring LLM Confidence through Stable Explanations." <em>arXiv preprint arXiv:2406.03441</em> (2024).</li>
