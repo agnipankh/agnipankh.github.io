@@ -192,22 +192,15 @@
         <article class="post">
         <div class="inner">
           <section class="post-content">
-            <p>This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP protected) to make reliable decisions in the presence of errors in Deep and traditional ML models. A long time ago my PhD thesis involved making reliable decisions in the presence of floating point errors. </p>
-<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for. Something I encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness etc. For this articleI will focus only on semantic correctness. </p>
+            <p>This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP protected) to make reliable decisions in the presence of errors in Deep and traditional ML models. In addition, my PhD thesis involved making reliable decisions in the presence of floating point errors. </p>
+<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for; something I encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness etc. For this article, I will focus only on semantic correctness. </p>
 <p>This is an updated version of the article published a few months ago. </p>
-<h2>Terminology</h2>
-<h4>Aleatoric uncertainty</h4>
-<p>Aleatoric uncertainty encompasses the lack of definiteness of the outcome of an event due to the inherent randomness in the process which determines the outcome of the event.</p>
-<p>One way to think about Aleatoric Uncertainty is that one can't reduce this uncertainty by giving more data to the model to train on. </p>
-<h4>Epistemic uncertainty.</h4>
-<p>Epistemic uncertainty characterizes the doubt associated with a certain outcome (prediction) due to a lack of knowledge or "ignorance" by a model. </p>
-<p>Epistemic uncertainty can be reduced by providing more knowledge to the model. </p>
 <h2>§1 White vs Black Box Approaches</h2>
 <p>We can apply different approaches if the internals of the LLMs are available for us. </p>
 <h3>§1.1 White Box Approaches</h3>
 <ul>
 <li>
-<p><strong>Average Negative Token Log-Probability</strong> look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a mean for all the tokens in the output.[<strong>Duan et al 2023, Kuhn et al. 2023</strong>]If <span class="math">\(p_{ij}\)</span> is the "weight" of the <span class="math">\(j\)</span>'th token for the <span class="math">\(i\)</span>th sentence, then the average confidence of the sentence is given by where <span class="math">\(L_i\)</span> is the number of tokens in the sentence <div class="math">$$ \text{Average}(p_i) = -\frac{1}{L_i} \sum_j \log(p_{ij}) $$</div> Other statistical metrics can be used as well. </p>
+<p><strong>Average Negative Token Log-Probability</strong> look at internal state of the model to compute the probabilities. For classifiers, this could just be looking at the weights of the final layer and normalizing, for generators this could mean taking the logit of each token, and computing a mean for all the tokens in the output[<strong>Duan et al 2023, Kuhn et al. 2023</strong>]. If <span class="math">\(p_{ij}\)</span> is the "weight" of the <span class="math">\(j\)</span>'th token for the <span class="math">\(i\)</span>th sentence, then the average confidence of the sentence is given by <div class="math">$$ \text{Average}(p_i) = -\frac{1}{L_i} \sum_j \log(p_{ij}) $$</div>  where <span class="math">\(L_i\)</span> is the number of tokens in the sentence.  Other statistical metrics can be used as well. </p>
 </li>
 <li>
 <p><strong>Entropy</strong> associated with the output distribution of token <span class="math">\(j\)</span> in sentence <span class="math">\(i\)</span> is defined as 
