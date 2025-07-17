@@ -193,10 +193,10 @@
         <div class="inner">
           <section class="post-content">
             <p>This is not the first time that I am encountering decisioning in the presence of uncertainty. At TruU we use various techniques (IP protected) to make reliable decisions in the presence of errors in Deep and traditional ML models. In addition, my PhD thesis involved making reliable decisions in the presence of floating point errors. </p>
-<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for; something I encounterd in our translation tools at TruU, where we had to grapple with correctness as well as tone, style, cultural appropriateness etc. For this article, I will focus only on semantic correctness. </p>
+<p>LLM inferences are no different. Since this is language, their are errors beyond simple correctness to account for; something I encountered in our translation tools at TruU, where we had to grapple with correctness in addition to tone, style, cultural appropriateness etc. For this article, I will focus only on semantic correctness. This article is primarily inspired by [Liu et al. 2025, &amp; Shorinwa et al. 2025] before diving into the rabbit hole. </p>
 <p>This is an updated version of the article published a few months ago. </p>
 <h2>§1 White vs Black Box Approaches</h2>
-<p>We can apply different approaches if the internals of the LLMs are available for us. </p>
+<p>Appraches differ if the internals of the LLMs are available for us or not. </p>
 <h3>§1.1 White Box Approaches</h3>
 <ul>
 <li>
@@ -246,7 +246,7 @@
 <h2>§3  Thoughts</h2>
 <p>The intellectual side of me really likes the previous section so that we can finally understand why certain decisions were made and make AI truly safe. However, the practioner side of me has more immediate concerns and looks like we have lots of choices to pick from. For the applications I am interested in, I will probably pick a variant of Conformal Prediction because it gives a guaranteed outcome and we can make appropriate decisions when the uncertainty is high. </p>
 <p>The challenge though is finding a calibration set that matches the population.  </p>
-<h2>§4 Reference</h2>
+<h2>§4 References</h2>
 <ul>
 <li>[Becker and Soatto 2024] Becker, Evan, and Stefano Soatto. "Cycles of Thought: Measuring LLM Confidence through Stable Explanations." <em>arXiv preprint arXiv:2406.03441</em> (2024).</li>
 <li>[Duan et al 2023] Jinhao Duan, Hao Cheng, Shiqi Wang, Chenan Wang,  Alex Zavalny, Renjing Xu, Bhavya Kailkhura, and  Kaidi Xu. 2023. Shifting attention to relevance: Towards the uncertainty estimation of large language  models. ArXiv preprint, abs/2307.01379.</li>
@@ -254,9 +254,11 @@
 <li>[Engels et al. 2024] Not All Language Model Features Are Linear. arXiv  preprint arXiv:2405.14860 (2024).  </li>
 <li>[Kuhn et al. 2023] Lorenz Kuhn, Yarin Gal, and Sebastian Farquhar. 2023.  Semantic uncertainty: Linguistic invariances for un-  certainty estimation in natural language generation.  ArXiv preprint, abs/2302.09664.</li>
 <li>[Li, Moxin, et al. 2024 ] Li, Moxin, et al. "Think twice before assure: Confidence estimation for large language models through reflection on multiple answers." <em>arXiv preprint arXiv:2403.09972</em> (2024).</li>
+<li>[Liu et al. 2025] Liu, X., Chen, T., Da, L., Chen, C., Lin, Z., &amp; Wei, H. (2025). Uncertainty quantification and confidence calibration in large language models: A survey. arXiv preprint arXiv:2503.15850.</li>
 <li>[Mo et al. 2024] Shentong Mo and Miao Xin. 2024. Tree of uncertain thoughts reasoning for  large language models. In ICASSP 2024-2024 IEEE International Conference on  Acoustics, Speech and Signal Processing (ICASSP). IEEE, 12742–12746</li>
 <li>[Pedapati et al. 2024] Pedapati, Tejaswini, et al. "Large Language Model Confidence Estimation via Black-Box Access." <em>arXiv preprint arXiv:2406.04370</em> (2024).</li>
 <li>[Ren et al. 2022 ] Jie Ren, Jiaming Luo, Yao Zhao, Kundan Krishna, Mo-  hammad Saleh, Balaji Lakshminarayanan, and Pe-  ter J Liu. 2022. Out-of-distribution detection and  selective generation for conditional language models.  ArXiv preprint, abs/2209.15558.</li>
+<li>[Shorinwa et al. 2025] Shorinwa, O., Mei, Z., Lidard, J., Ren, A. Z., &amp; Majumdar, A. (2025). A survey on uncertainty quantification of large language models: Taxonomy, open research challenges, and future directions. ACM Computing Surveys.</li>
 <li>[Shrivastava et al. 2023 ] Vaishnavi Shrivastava, Percy Liang, and Ananya Kumar.  2023. Llamas know what gpts don’t show: Surrogate  models for confidence estimation. ArXiv preprint,  abs/2311.08877.</li>
 <li>[Su, Jiayuan, et al. 2024] Api is enough: Conformal prediction for large language models without logit-access." arXiv preprint arXiv:2403.01216 (2024).</li>
 <li>[Wagner et al. 2024]Wagner, Nico, et al. "Black-box Uncertainty Quantification Method for LLM-as-a-Judge." <em>arXiv preprint arXiv:2410.11594</em>(2024).</li>
