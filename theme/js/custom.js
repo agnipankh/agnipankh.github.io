@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Grid cards only — never article headers: a background tab suspends the
+  // transition, which would leave the header invisible until refocus.
+  const targets = document.querySelectorAll('#index .grid-card, #index .featured-card');
+  if (!targets.length || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+  targets.forEach(function(el) {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
   console.log('Related articles script loaded');
 
   // Only run on article pages

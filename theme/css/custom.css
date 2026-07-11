@@ -1,15 +1,597 @@
-/* Related Articles Styling */
+/* ==========================================================================
+   Editorial Monochrome skin — loaded after themes/attila/static/css/style.css
+   via CSS_OVERRIDE, so equal-specificity rules here win.
+
+   Listing pages (home/category/tag/author) sit on a gray canvas with white
+   shadowed tiles in a natural-aspect masonry grid; article pages stay a calm
+   single-surface reading well. Palette + fonts flow through Attila's CSS
+   custom properties; the three token blocks mirror the theme's light /
+   forced-dark / system-dark structure so the footer toggle keeps working.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --color-primary: #0a0a0a;
+  --color-primary-active: #444444;
+  --color-background-main: #ffffff;
+  --color-background-secondary: #f7f7f8;
+  --color-background-contrast: #e6e6e6;
+  --color-content-lead: #0a0a0a;
+  --color-content-main: #1f2124;
+  --color-content-secondary: #6b6f76;
+
+  /* skin-only tokens */
+  --mono-hairline: var(--color-background-contrast);
+  --mono-canvas: #ebebee;
+  --mono-tile: #ffffff;
+  --mono-tile-border: transparent;
+  --mono-tile-shadow: 0 1px 2px rgba(10, 10, 10, 0.06),
+    0 6px 20px rgba(10, 10, 10, 0.1);
+  --mono-tile-shadow-hover: 0 2px 4px rgba(10, 10, 10, 0.08),
+    0 14px 34px rgba(10, 10, 10, 0.16);
+}
+
+.theme-dark:root {
+  --color-primary: #ffffff;
+  --color-primary-active: #c7c9cc;
+  --color-background-main: #0a0a0a;
+  --color-background-secondary: #141414;
+  --color-background-contrast: #262626;
+  --color-content-lead: #ffffff;
+  --color-content-main: #e3e4e6;
+  --color-content-secondary: #8a8f98;
+
+  --mono-canvas: #0a0a0a;
+  --mono-tile: #17181b;
+  --mono-tile-border: #26272b;
+  --mono-tile-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --mono-tile-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.theme-light):root {
+    --color-primary: #ffffff;
+    --color-primary-active: #c7c9cc;
+    --color-background-main: #0a0a0a;
+    --color-background-secondary: #141414;
+    --color-background-contrast: #262626;
+    --color-content-lead: #ffffff;
+    --color-content-main: #e3e4e6;
+    --color-content-secondary: #8a8f98;
+
+    --mono-canvas: #0a0a0a;
+    --mono-tile: #17181b;
+    --mono-tile-border: #26272b;
+    --mono-tile-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --mono-tile-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Base typography
+   -------------------------------------------------------------------------- */
+
+.post-title,
+.blog-name,
+.archive-title {
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   3. Top navigation — quiet bar over a hairline, transparent over the canvas
+   -------------------------------------------------------------------------- */
+
+.nav-header {
+  background: transparent;
+  border-bottom: 1px solid var(--mono-hairline);
+}
+
+.nav-header li a {
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   4. Listing pages sit on the gray canvas
+   -------------------------------------------------------------------------- */
+
+body.home-template,
+body.category-template,
+body.tag-template,
+body.author-template,
+body.archive-template {
+  background: var(--mono-canvas);
+}
+
+/* widen the listing containers to gallery width */
+#index main.content {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Homepage hero — kicker / site name / gray subtitle, left-aligned
+   -------------------------------------------------------------------------- */
+
+.blog-header {
+  padding: calc(8rem + 3vw) 0 calc(3rem + 1vw);
+}
+
+.blog-header .inner {
+  max-width: 1160px;
+  padding: 0 2rem;
+}
+
+.blog-header .blog-box {
+  text-align: left;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.blog-kicker {
+  display: block;
+  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-content-secondary);
+}
+
+.blog-name {
+  font-size: clamp(4rem, 6vw, 7.2rem);
+  line-height: 1.05;
+  color: var(--color-content-lead);
+}
+
+.blog-description {
+  display: block;
+  margin-top: 1.4rem;
+  font-size: clamp(1.8rem, 2.2vw, 2.2rem);
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--color-content-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   6. Featured essay — full-width split tile on page 1
+   -------------------------------------------------------------------------- */
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  text-decoration: none;
+  background: var(--mono-tile);
+  border: 1px solid var(--mono-tile-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: var(--mono-tile-shadow);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+/* #index prefix so the transform outranks .reveal.is-visible */
+#index .featured-card:hover {
+  box-shadow: var(--mono-tile-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.featured-card-noimage {
+  grid-template-columns: 1fr;
+}
+
+.featured-body {
+  padding: 4.4rem 4.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-content-lead);
+  margin-bottom: 1.8rem;
+}
+
+.featured-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 3vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.14;
+  color: var(--color-content-lead);
+}
+
+.featured-excerpt {
+  margin: 1.4rem 0 0;
+  font-size: 1.7rem;
+  line-height: 1.55;
+  color: var(--color-content-secondary);
+  max-width: 52ch;
+}
+
+.featured-meta {
+  margin-top: 2.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-content-secondary);
+}
+
+.featured-meta b {
+  color: var(--color-content-lead);
+}
+
+.featured-img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  display: block;
+  border-left: 1px solid var(--mono-hairline);
+}
+
+/* --------------------------------------------------------------------------
+   7. Masonry card grid — natural aspect ratios, packed columns
+   -------------------------------------------------------------------------- */
+
+#index .grid {
+  columns: 3;
+  column-gap: 2rem;
+}
+
+.grid-card {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  background: var(--mono-tile);
+  border: 1px solid var(--mono-tile-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--mono-tile-shadow);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+#index .grid-card:hover {
+  box-shadow: var(--mono-tile-shadow-hover);
+  transform: translateY(-3px);
+}
+
+.grid-card-link {
+  display: block;
+  text-decoration: none;
+}
+
+.grid-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--mono-hairline);
+}
+
+.grid-card-body {
+  padding: 1.8rem 2rem 2rem;
+}
+
+.grid-card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-content-secondary);
+  margin-bottom: 1rem;
+}
+
+.grid-card-cat {
+  color: var(--color-content-lead);
+}
+
+.grid-card-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  line-height: 1.28;
+  color: var(--color-content-lead);
+}
+
+@media (max-width: 900px) {
+  #index .grid { columns: 2; }
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-img {
+    min-height: 220px;
+    border-left: none;
+    border-top: 1px solid var(--mono-hairline);
+    order: -1;
+  }
+  .featured-body { padding: 3.2rem 2.4rem; }
+}
+
+@media (max-width: 620px) {
+  #index .grid { columns: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   8. Pagination — pill buttons
+   -------------------------------------------------------------------------- */
+
+.pagination a {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border: 1px solid var(--mono-hairline);
+  border-radius: 999px;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: var(--color-content-main);
+  background: var(--mono-tile);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.pagination a:hover {
+  background: var(--color-content-lead);
+  border-color: var(--color-content-lead);
+  color: var(--color-background-main);
+}
+
+.pagination-info {
+  color: var(--color-content-secondary);
+  font-size: 1.4rem;
+}
+
+/* hide the duplicate pagination Attila renders above the grid */
+.extra-pagination {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. Article page — stark type header, framed cover, calm reading well
+   -------------------------------------------------------------------------- */
+
+.post-header {
+  padding: calc(10rem + 4vw) 0 calc(2rem + 2vw);
+}
+
+/* covers become framed figures below the title instead of full-bleed heroes */
+.post-header.has-cover {
+  background: transparent;
+  padding: calc(10rem + 4vw) 0 calc(2rem + 2vw);
+  margin-bottom: 0;
+  text-shadow: none;
+  overflow: visible;
+}
+
+.post-cover {
+  position: static;
+  width: 100%;
+  height: auto;
+  margin-top: 4rem;
+  background: none;
+  animation: none;
+  display: block;
+  /* the theme's script.js parallax sets an inline translate3d meant for the
+     old full-bleed hero; !important beats the inline style and pins the
+     framed figure in flow */
+  transform: none !important;
+}
+
+.post-cover img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--mono-hairline);
+  border-radius: 4px;
+}
+
+.post-cover::after {
+  display: none;
+}
+
+.has-cover .post-title,
+.post-header .post-title {
+  color: var(--color-content-lead);
+}
+
+.has-cover .post-info .post-type,
+.post-info .post-type {
+  color: var(--color-content-lead);
+  font-weight: 600;
+}
+
+.has-cover .post-info .post-count,
+.post-info .post-count {
+  color: var(--color-content-secondary);
+}
+
+.has-cover .post-info .post-count::after {
+  background: var(--mono-hairline);
+}
+
+.post-header .post-title {
+  font-size: clamp(3.2rem, 5vw, 5.4rem);
+  line-height: 1.12;
+}
+
+.post-header .post-meta {
+  padding-top: 2rem;
+  border-top: 1px solid var(--mono-hairline);
+  color: var(--color-content-secondary);
+}
+
+/* tags on article pages as pills */
+.post-tags a,
+.post-meta-tag {
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  margin: 0 0.6rem 0.8rem 0;
+  border: 1px solid var(--mono-hairline);
+  border-radius: 999px;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  text-decoration: none;
+  color: var(--color-content-main);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.post-tags a:hover,
+.post-meta-tag:hover {
+  background: var(--color-content-lead);
+  border-color: var(--color-content-lead);
+  color: var(--color-background-main);
+}
+
+/* reading links: ink with gray underline */
+.post-content a {
+  color: var(--color-content-lead);
+  text-decoration: underline;
+  text-decoration-color: var(--color-content-secondary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.post-content a:focus,
+.post-content a:hover {
+  color: var(--color-content-lead);
+  text-decoration-color: currentColor;
+}
+
+.post-content blockquote {
+  border-left: 2px solid var(--color-content-lead);
+  color: var(--color-content-secondary);
+}
+
+/* section divider: plain solid hairline */
+.post-content hr {
+  height: auto;
+  margin: 6rem auto;
+  border: none;
+  border-top: 1px solid var(--mono-hairline);
+  background: none;
+}
+
+/* --------------------------------------------------------------------------
+   10. Code — monochrome syntax highlighting
+   Structure through weight and shade, not hue. Routing through the skin
+   variables also fixes the theme's hljs dark colors only responding to
+   prefers-color-scheme, never the manual toggle.
+   -------------------------------------------------------------------------- */
+
+.post-content pre {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--mono-hairline);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.hljs,
+.hljs-number,
+.hljs-hexcolor,
+.hljs-attribute,
+.hljs-variable,
+.hljs-name,
+.hljs-built_in,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rule .hljs-property {
+  color: var(--color-content-main);
+  font-weight: 400;
+}
+
+.hljs-comment,
+.diff .hljs-header,
+.hljs-javadoc,
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-doctype,
+.hljs-shebang,
+.hljs-cdata,
+.hljs-chunk {
+  color: var(--color-content-secondary);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hljs-keyword,
+.css .rule .hljs-keyword,
+.hljs-winutils,
+.nginx .hljs-title,
+.hljs-subst,
+.hljs-request,
+.hljs-status,
+.hljs-title,
+.hljs-id,
+.scss .hljs-preprocessor,
+.hljs-class .hljs-title,
+.hljs-type,
+.vhdl .hljs-literal,
+.tex .hljs-command {
+  color: var(--color-content-lead);
+  font-weight: 600;
+}
+
+.hljs-deletion,
+.hljs-addition,
+.diff .hljs-change {
+  background: var(--color-background-contrast);
+}
+
+/* --------------------------------------------------------------------------
+   11. Footer — the one dark band on every page
+   -------------------------------------------------------------------------- */
+
+.nav-footer {
+  margin-top: calc(8rem + 4vw);
+  padding: 5rem 0;
+  background: #0a0a0a;
+  border-top: 1px solid #262626;
+}
+
+.nav-footer .nav-copy,
+.nav-footer a,
+.nav-footer .nav-credits {
+  color: #8a8f98;
+}
+
+.nav-footer a:focus,
+.nav-footer a:hover {
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   12. Related articles — monochrome cards (article pages)
+   -------------------------------------------------------------------------- */
+
 .related-articles {
   margin: 5rem 0 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid var(--mono-hairline);
 }
 
 .related-articles-title {
   font-size: 1.8rem;
   margin-bottom: 2rem;
-  text-align: center;
+  text-align: left;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .related-articles-grid {
@@ -19,16 +601,15 @@
 }
 
 .related-article-card {
-  border-radius: 8px;
+  border: 1px solid var(--mono-hairline);
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  background: #fff;
+  background: var(--color-background-secondary);
+  transition: border-color 0.2s ease;
 }
 
 .related-article-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  border-color: var(--color-content-secondary);
 }
 
 .related-article-link {
@@ -40,17 +621,18 @@
 .related-article-image {
   height: 140px;
   overflow: hidden;
+  border-bottom: 1px solid var(--mono-hairline);
 }
 
 .related-article-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s;
+  transition: transform 0.4s ease;
 }
 
 .related-article-card:hover .related-article-image img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .related-article-no-image {
@@ -59,17 +641,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  color: #999;
+  background-color: var(--color-background-secondary);
+  color: var(--color-content-secondary);
   font-size: 2rem;
 }
 
 .related-article-title {
   padding: 1rem;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 1.4;
-  color: #333;
+  color: var(--color-content-main);
   font-weight: 600;
 }
 
@@ -85,6 +667,26 @@
 
   .related-article-title {
     padding: 0.75rem;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
+}
+
+/* --------------------------------------------------------------------------
+   13. Reveal-on-scroll motion
+   custom.js tags grid cards, the featured tile, and article headers with
+   .reveal, then adds .is-visible as they enter the viewport (skipped under
+   prefers-reduced-motion). Card hover rules above use an #index prefix so
+   they outrank .reveal.is-visible's transform.
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
